@@ -17,6 +17,10 @@ RSpec.describe Ship do
     it "has health" do
       expect(cruiser.health).to eq(3)
     end
+
+    it "can provide its length" do
+      expect(cruiser.length).to eq(3)
+    end
   end
 
   describe "ship status" do
