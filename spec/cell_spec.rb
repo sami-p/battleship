@@ -22,11 +22,16 @@ describe Cell do
       expect(cell.empty?).to eq(true)
     end
   end
+
+  describe "ship placement into cell" do
+    cruiser = Ship.new("Cruiser", 3)
+    cell = Cell.new("B4")
+
+    it "it can take a ship" do
+      cell.place_ship(cruiser)
+
+      expect(cell.ship).to eq(cruiser)
+      expect(cell.empty?).to eq(false)
+    end
+  end
 end
-# cruiser = Ship.new("Cruiser", 3)
-# # => #<Ship:0x00007f84f0891238...>
-# cell.place_ship(cruiser)
-# cell.ship
-# # => #<Ship:0x00007f84f0891238...>
-# cell.empty?
-# # => false
