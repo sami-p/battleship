@@ -2,7 +2,6 @@ require 'rspec'
 require './lib/ship'
 require './lib/cell'
 
-
 describe Cell do
   describe "initialize" do
     cell = Cell.new("B4")
@@ -14,11 +13,12 @@ describe Cell do
     it "has a coordinate" do
       expect(cell.coordinate).to eq("B4")
     end
+
+    it "has no ships" do
+      expect(cell.ship).to be(nil)
+    end
   end
 end
-
-# cell.ship
-# # => nil
 # cell.empty?
 # # => true
 # cruiser = Ship.new("Cruiser", 3)
