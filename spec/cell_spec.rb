@@ -17,10 +17,12 @@ describe Cell do
     it "has no ships" do
       expect(cell.ship).to be(nil)
     end
+
+    it "is empty" do
+      expect(cell.empty?).to eq(true)
+    end
   end
 end
-# cell.empty?
-# # => true
 # cruiser = Ship.new("Cruiser", 3)
 # # => #<Ship:0x00007f84f0891238...>
 # cell.place_ship(cruiser)
