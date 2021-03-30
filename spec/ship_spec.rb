@@ -14,5 +14,9 @@ RSpec.describe Ship do
     it "has a name" do
       expect(cruiser.name).to eq("Cruiser")
     end
+
+    it "has health" do
+      expect(cruiser.health).to eq(3)
+    end
   end
 end
