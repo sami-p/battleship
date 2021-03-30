@@ -4,7 +4,6 @@ require './lib/ship'
 
 RSpec.describe Ship do
   describe "initialize" do
-
     cruiser = Ship.new("Cruiser", 3)
 
     it "is a ship" do
@@ -17,6 +16,14 @@ RSpec.describe Ship do
 
     it "has health" do
       expect(cruiser.health).to eq(3)
+    end
+  end
+
+  describe "ship status" do
+    cruiser = Ship.new("Cruiser", 3)
+
+    it "is not sunk by default" do
+      expect(cruiser.sunk?).to eq false
     end
   end
 end
