@@ -11,4 +11,8 @@ class Cell
     return true if @ship == nil
     false
   end
+
+  def place_ship(ship)
+    @ship = ship
+  end
 end
