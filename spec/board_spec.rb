@@ -9,7 +9,5 @@ describe Board do
     it 'exists' do
       expect(board).to be_a Board
     end
-
-    
   end
 end
