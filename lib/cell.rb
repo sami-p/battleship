@@ -35,7 +35,7 @@ class Cell
     end
   end
 
-  def render(show = false)
+  def render(reveal = false)
     if @fire == true && empty? == true
       "M"
     elsif @fire == true && ship.sunk? == true
@@ -43,7 +43,7 @@ class Cell
     elsif
       @fire == true && empty? == false
       "H"
-    elsif show == true && @fire == false
+    elsif reveal == true && @fire == false
       "S"
     elsif @fire == false
       "."
