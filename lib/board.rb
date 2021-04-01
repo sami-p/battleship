@@ -28,7 +28,7 @@ class Board
   #   ["A", "B", "C", "D"].each do |letter|
   #     ["1", "2", "3", "4"].each do |number|
   #       name = letter + number
-  #       @cells[name] = name
+  #       @cells[name] = Cell.new(name)
   #     end
   #   end
   # end
@@ -43,7 +43,6 @@ class Board
 
   def valid_placement?(ship, coordinates)
     if valid_length?(ship, coordinates)
-
   end
 
   def valid_length?(ship, coordinates)
