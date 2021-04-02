@@ -16,15 +16,11 @@ class Board
   end
 
   def valid_coordinate?(cell)
-    if @cells.key?(cell)
-      true
-    else
-      false
-    end
+    @cells.key?(cell)
   end
 
   def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length
+    if ship.length == coordinates.length # make sure they're consecutive and don't overlap
       letters = coordinates.map do |coordinate|
         coordinate.chars.first
       end
@@ -34,23 +30,30 @@ class Board
         letter_array = letters.map do |letter|
           letter.ord
         end
+        num_array = numbers.map do |number|
+          number.ord
+        end
+        letter_array.each_cons(2).all? { |x, y| x == y } || letter_array.each_cons(2).all? { |x, y| x == y - 1 }
+        num_array.each_cons(2).all? { |x, y| x == y - 1 }
     end
-require 'pry'; binding.pry
-    # Need to check if the string "letter" is in order or the same.
-    # Need to check is the string "integer" consecutive
-    # First step is to split the string by characters to isolate letter from number
-    # name.split
-
-    # User map and chars.first / chars.last . Set new array to variables.
   end
+# num_array.each_cons(2).all? { |x, y| x == y } || 
+# Split into two methods
+# use each_con to iterate through numbers or letter
+# at each index it needs to be <<ed into an array
+# use documention around arthimatic - this can help with the sussing out of the logic
+# Ensure the ships don't overlap - empty?
+# We need to ensure that everything is -1 from each other
+# Use each_con(2) to check if the horizontal letters and numbers were true.
+# Need to check if the string "letter" is in order or the same.
+# Need to check is the string "integer" consecutive
 
-  # def valid_length?(ship, coordinates)
-  #   if ship.length == coordinates.length
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
+# Method checks whether player input valid coordinates, and the ship's placement was either horizontal or vertical
+# def valid_placement?(ship, coordinates)
+#   player_input_valid?(ship, coordinates) &&
+#   (is_horizontal?(ship, coordinates) ||
+#   is_vertical?(ship, coordinates))
+# end
 
   # def consecutive(ship, coordinates)
   # end
