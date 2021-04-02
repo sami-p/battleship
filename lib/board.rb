@@ -42,11 +42,23 @@ class Board
     if ship.length == coordinates.length # make sure they're consecutive and don't overlap
       ord_arrays(coordinates)
         @letter_array.each_cons(2).all? { |x, y| x == y } || @letter_array.each_cons(2).all? { |x, y| x == y - 1 }
-        @num_array.each_cons(2).all? { |x, y| x == y - 1 }
+        @num_array.each_cons(2).all? { |x, y| x == y - 1 } || @num_array.each_cons(2).all? { |x, y| x == y }
     else
       false
     end
   end
+
+  def consecutive_letters
+    @letter_array.each_cons(2) do |let1, let2|
+      if let1 == let2 || let1 == let2 - 1
+        true
+      else
+        false
+      end
+    end
+  end
+end
+
 # num_array.each_cons(2).all? { |x, y| x == y } ||
 # Split into two methods
 # use each_con to iterate through numbers or letter
@@ -70,4 +82,3 @@ class Board
 
   # def not_diagonal(ship, coordinates)
   # end
-end
