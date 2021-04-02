@@ -27,17 +27,19 @@ class Board
       numbers = coordinates.map do |coordinate|
         coordinate.chars.last
       end
-        letter_array = letters.map do |letter|
-          letter.ord
-        end
-        num_array = numbers.map do |number|
-          number.ord
-        end
-        letter_array.each_cons(2).all? { |x, y| x == y } || letter_array.each_cons(2).all? { |x, y| x == y - 1 }
-        num_array.each_cons(2).all? { |x, y| x == y - 1 }
+      letter_array = letters.map do |letter|
+        letter.ord
+      end
+      num_array = numbers.map do |number|
+        number.ord
+      end
+      letter_array.each_cons(2).all? { |x, y| x == y } || letter_array.each_cons(2).all? { |x, y| x == y - 1 }
+      num_array.each_cons(2).all? { |x, y| x == y - 1 }
+    else
+      false
     end
   end
-# num_array.each_cons(2).all? { |x, y| x == y } || 
+# num_array.each_cons(2).all? { |x, y| x == y } ||
 # Split into two methods
 # use each_con to iterate through numbers or letter
 # at each index it needs to be <<ed into an array
