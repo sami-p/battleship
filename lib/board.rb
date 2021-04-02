@@ -23,7 +23,7 @@ class Board
     @cells.key?(cell)
   end
 
-  def ord_array(coordinates)
+  def ord_arrays(coordinates)
     letters = coordinates.map do |coordinate|
       coordinate.chars.first
     end
@@ -40,9 +40,9 @@ class Board
 
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length # make sure they're consecutive and don't overlap
-      ord_array(coordinates)
-      @letter_array.each_cons(2).all? { |x, y| x == y } || @letter_array.each_cons(2).all? { |x, y| x == y - 1 }
-      @num_array.each_cons(2).all? { |x, y| x == y - 1 }
+      ord_arrays(coordinates)
+        @letter_array.each_cons(2).all? { |x, y| x == y } || @letter_array.each_cons(2).all? { |x, y| x == y - 1 }
+        @num_array.each_cons(2).all? { |x, y| x == y - 1 }
     else
       false
     end
