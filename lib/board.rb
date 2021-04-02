@@ -1,9 +1,13 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :letter_array,
+              :num_array
 
   def initialize
     @cells = {}
     cell_creation
+    @letter_array = letter_array
+    @num_array = num_array
   end
 
   def cell_creation
@@ -19,22 +23,26 @@ class Board
     @cells.key?(cell)
   end
 
+  def ord_array(coordinates)
+    letters = coordinates.map do |coordinate|
+      coordinate.chars.first
+    end
+    numbers = coordinates.map do |coordinate|
+      coordinate.chars.last
+    end
+    @letter_array = letters.map do |letter|
+      letter.ord
+    end
+    @num_array = numbers.map do |number|
+      number.ord
+    end
+  end
+
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length # make sure they're consecutive and don't overlap
-      letters = coordinates.map do |coordinate|
-        coordinate.chars.first
-      end
-      numbers = coordinates.map do |coordinate|
-        coordinate.chars.last
-      end
-      letter_array = letters.map do |letter|
-        letter.ord
-      end
-      num_array = numbers.map do |number|
-        number.ord
-      end
-      letter_array.each_cons(2).all? { |x, y| x == y } || letter_array.each_cons(2).all? { |x, y| x == y - 1 }
-      num_array.each_cons(2).all? { |x, y| x == y - 1 }
+      ord_array(coordinates)
+      @letter_array.each_cons(2).all? { |x, y| x == y } || @letter_array.each_cons(2).all? { |x, y| x == y - 1 }
+      @num_array.each_cons(2).all? { |x, y| x == y - 1 }
     else
       false
     end
