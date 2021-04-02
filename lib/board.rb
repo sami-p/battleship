@@ -37,8 +37,7 @@ class Board
         num_array.each_cons(2).all? { |x, y| x == y - 1 }
     end
   end
-
-
+# num_array.each_cons(2).all? { |x, y| x == y } || 
 # Split into two methods
 # use each_con to iterate through numbers or letter
 # at each index it needs to be <<ed into an array
