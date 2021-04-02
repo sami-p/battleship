@@ -36,17 +36,28 @@ class Cell
   end
 
   def render(reveal = false)
-    if @fire == true && empty? == true
+    if miss?
       "M"
-    elsif @fire == true && ship.sunk? == true
+    elsif ship_sunk?
       "X"
-    elsif
-      @fire == true && empty? == false
+    elsif ship_hit?
       "H"
     elsif reveal == true && @fire == false
       "S"
     elsif @fire == false
       "."
     end
+  end
+
+  def miss?
+    @fire == true && empty? == true
+  end
+
+  def ship_sunk?
+    @fire == true && ship.sunk? == true
+  end
+
+  def ship_hit?
+    @fire == true && empty? == false
   end
 end
