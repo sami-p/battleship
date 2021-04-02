@@ -24,17 +24,33 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if valid_length?(ship, coordinates)
+    if ship.length == coordinates.length
+      letters = coordinates.map do |coordinate|
+        coordinate.chars.first
+      end
+      numbers = coordinates.map do |coordinate|
+        coordinate.chars.last
+      end
+        letter_array = letters.map do |letter|
+          letter.ord
+        end
     end
+require 'pry'; binding.pry
+    # Need to check if the string "letter" is in order or the same.
+    # Need to check is the string "integer" consecutive
+    # First step is to split the string by characters to isolate letter from number
+    # name.split
+
+    # User map and chars.first / chars.last . Set new array to variables.
   end
 
-  def valid_length?(ship, coordinates)
-    if ship.length == coordinates.length
-      true
-    else
-      false
-    end
-  end
+  # def valid_length?(ship, coordinates)
+  #   if ship.length == coordinates.length
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 
   # def consecutive(ship, coordinates)
   # end
