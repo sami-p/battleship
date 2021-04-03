@@ -60,4 +60,7 @@ class Board
       false
     end
   end
+
+  def place(ship, coordinates)
+  end
 end
