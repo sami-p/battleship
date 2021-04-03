@@ -44,10 +44,14 @@ class Board
     @num_array.each_cons(2).all? { |x, y| x == y - 1 } || @num_array.each_cons(2).all? { |x, y| x == y }
   end
 
+  def diagonal_cons
+    @letter_array.each_cons(2).all? { |x, y| x == y - 1 } && @num_array.each_cons(2).all? { |x, y| x == y - 1 }
+  end
+
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length
       ord_arrays(coordinates)
-        if letter_cons && num_cons == true
+        if (letter_cons && num_cons == true) && (diagonal_cons == false)
           true
         else
           false
@@ -57,6 +61,7 @@ class Board
     end
   end
 end
+
 # Split into two methods
 # use each_con to iterate through numbers or letter
 # at each index it needs to be <<ed into an array
