@@ -1,5 +1,7 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+                   :letter_array,
+                   :num_array
 
   def initialize
     @cells = {}
@@ -19,25 +21,45 @@ class Board
     @cells.key?(cell)
   end
 
-  def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length # make sure they're consecutive and don't overlap
-      letters = coordinates.map do |coordinate|
-        coordinate.chars.first
-      end
-      numbers = coordinates.map do |coordinate|
-        coordinate.chars.last
-      end
-        letter_array = letters.map do |letter|
-          letter.ord
-        end
-        num_array = numbers.map do |number|
-          number.ord
-        end
-        letter_array.each_cons(2).all? { |x, y| x == y } || letter_array.each_cons(2).all? { |x, y| x == y - 1 }
-        num_array.each_cons(2).all? { |x, y| x == y - 1 }
+  def ord_arrays(coordinates)
+    letters = coordinates.map do |coordinate|
+      coordinate.chars.first
+    end
+    numbers = coordinates.map do |coordinate|
+      coordinate.chars.last
+    end
+    @letter_array = letters.map do |letter|
+      letter.ord
+    end
+    @num_array = numbers.map do |number|
+      number.to_i
     end
   end
-# num_array.each_cons(2).all? { |x, y| x == y } || 
+
+  def letter_cons
+    @letter_array.each_cons(2).all? { |x, y| x == y } || @letter_array.each_cons(2).all? { |x, y| x == y - 1 }
+  end
+
+  def num_cons
+    @num_array.each_cons(2).all? { |x, y| x == y - 1 } || @num_array.each_cons(2).all? { |x, y| x == y }
+  end
+
+  def diagonal_cons
+    @letter_array.each_cons(2).all? { |x, y| x == y - 1 } && @num_array.each_cons(2).all? { |x, y| x == y - 1 }
+  end
+
+  def valid_placement?(ship, coordinates)
+    if ship.length == coordinates.length
+      ord_arrays(coordinates)
+        return true if (letter_cons && num_cons == true) && (diagonal_cons == false)
+        else
+          false
+        end
+    else
+      false
+  end
+end
+
 # Split into two methods
 # use each_con to iterate through numbers or letter
 # at each index it needs to be <<ed into an array
@@ -60,4 +82,3 @@ class Board
 
   # def not_diagonal(ship, coordinates)
   # end
-end
