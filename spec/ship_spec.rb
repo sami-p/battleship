@@ -27,7 +27,7 @@ RSpec.describe Ship do
     cruiser = Ship.new("Cruiser", 3)
 
     it "is not sunk by default" do
-      expect(cruiser.sunk?).to eq false
+      expect(cruiser.sunk?).to eq(false)
     end
 
     it "can be hit" do
@@ -44,6 +44,5 @@ RSpec.describe Ship do
 
       expect(cruiser.sunk?).to eq(true)
     end
-
   end
 end
