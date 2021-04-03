@@ -32,7 +32,7 @@ class Board
       letter.ord
     end
     @num_array = numbers.map do |number|
-      number.ord
+      number.to_i
     end
   end
 
@@ -51,14 +51,12 @@ class Board
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length
       ord_arrays(coordinates)
-        if (letter_cons && num_cons == true) && (diagonal_cons == false)
-          true
+        return true if (letter_cons && num_cons == true) && (diagonal_cons == false)
         else
           false
         end
     else
       false
-    end
   end
 end
 
