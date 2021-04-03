@@ -1,13 +1,11 @@
 class Board
   attr_reader :cells,
-                   :letter_array,
-                   :num_array
+              :letter_array,
+              :num_array
 
   def initialize
     @cells = {}
     cell_creation
-    @letter_array = letter_array
-    @num_array = num_array
   end
 
   def cell_creation
@@ -39,7 +37,7 @@ class Board
   end
 
   def letter_cons
-    @letter_array.each_cons(2).all? { |x, y| x == y- 1 } || @letter_array.each_cons(2).all? { |x, y| x == y  }
+    @letter_array.each_cons(2).all? { |x, y| x == y - 1 } || @letter_array.each_cons(2).all? { |x, y| x == y }
   end
 
   def num_cons
@@ -53,11 +51,13 @@ class Board
   def valid_placement?(ship, coordinates)
     if ship.length == coordinates.length && @cells[coordinates].nil?
       ord_arrays(coordinates)
-        return true if (letter_cons && num_cons == true) && (diagonal_cons == false)
+        if (letter_cons && num_cons == true) && (diagonal_cons == false)
+          true
         else
           false
         end
     else
       false
+    end
   end
 end
