@@ -1,45 +1,85 @@
+require './lib/ship'
+require './lib/cell'
+require './lib/board'
+
 class Game
-  attr_reader :board,
-              :player_input
+  attr_reader :cruiser,
+                   :submarine,
+                   :board,
+                   :player_input
 
   def initialize(board)
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
     @board = Board.new
     @player_input = player_input
   end
 
   def start
     welcome_message
+    play_or_quit_input
+    begin_or_end_game
     @board.render
+  end
+
+  def play_or_quit_input
+    until @player_input == 'p' || @player_input == 'q'
+      welcome_message
+    end
+  end
+
+  def begin_or_end_game
+    if @player_input == 'p'
+      player_placement
+    elsif @player_input == 'q'
+      quit_message
+    end
   end
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = $stdin.gets.chomp.downcase
-    player_placement
+    @player_input = input.downcase
   end
 
   def player_placement
-    if @player_input == 'p'
-      player_placement_instructions
-      puts @board.render(true)
-      cruiser_prompt
-      @player_input = $stdin.gets.chomp.downcase
-    elsif player_input == 'q'
-      quit_message
+
+    placement_instructions
+    if !board.valid_placement?(cruiser, @player_input)
+      invalid_coordinates
     end
+
+    until board.valid_placement?(cruiser, @player_input)
+      placement_instructions
+      if !board.valid_placement?(cruiser, @player_input)
+        invalid_coordinates
+      end
+    end
+
+    board.place(cruiser, @player_input)
+
+    submarine_prompt
+    if !board.valid_placement?(submarine, @player_input)
+      invalid_coordinates
+    end
+
+    until board.valid_placement?(submarine, @player_input)
+      submarine_prompt
+      if !board.valid_placement?(submarine, @player_input)
+        invalid_coordinates
+      end
+    end
+
+    board.place(submarine, @player_input)
+    puts puts @board.render(true)
   end
 
-  # Next: need a @player_input that accounts for the coordinates
-  # must be able to tell if they are put in correctly - valid_placement?
+  def input
+    gets.chomp
+  end
 
-  #Create a message/method for user to enter sub coordinates
-
-  # Create a message/method for user entering an invalid sequence
-
-
-  def player_placement_instructions
+  def placement_instructions
     puts " "
     puts "Alrighty, I've placed my ships on my board."
     puts "Now it's your turn!"
@@ -49,12 +89,30 @@ class Game
     puts "Oh right! Also, your ships must lay on a horizontal or vertical axis."
     puts "             -Phew!- Almost forgot to tell you that!"
     puts " "
+    puts @board.render(true)
+    cruiser_prompt
   end
 
   def cruiser_prompt
     puts " "
     puts "Enter the coordinates for the Cruiser (remember its three consecutive units)"
     print "> "
+    @player_input = input.upcase.split
+  end
+
+  def submarine_prompt
+    puts " "
+    puts @board.render(true)
+    puts " "
+    puts "Enter the coordinates for the Submarine (remember its two consecutive units)"
+    print "> "
+    @player_input = input.upcase.split
+    puts " "
+  end
+
+  def invalid_coordinates
+    puts " "
+    puts "Whoops! Those coordinates aren't valid, please try again!"
   end
 
   def quit_message
