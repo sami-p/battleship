@@ -3,7 +3,8 @@ require './lib/cell'
 class Board
   attr_accessor :cells
   attr_reader :letter_array,
-              :num_array
+              :num_array,
+              :ship_length
 
   def initialize
     @cells = {}
@@ -26,8 +27,11 @@ class Board
   def valid_placement?(ship, coordinates)
     if compare_all_length(ship, coordinates) && not_overlapping(coordinates)
       ord_arrays(coordinates)
-        return true if compare_all_coord
+        if compare_all_coord
+          true
+        else
           false
+        end
     else
       false
     end
@@ -42,7 +46,7 @@ class Board
   end
 
   def render(reveal = false)
-     " 1 2 3 4 \n" +
+     "  1 2 3 4 \n" +
     "A #{@cells["A1"].render(reveal)} #{@cells["A2"].render(reveal)} #{@cells["A3"].render(reveal)} #{@cells["A4"].render(reveal)}\n" +
     "B #{@cells["B1"].render(reveal)} #{@cells["B2"].render(reveal)} #{@cells["B3"].render(reveal)} #{@cells["B4"].render(reveal)}\n" +
     "C #{@cells["C1"].render(reveal)} #{@cells["C2"].render(reveal)} #{@cells["C3"].render(reveal)} #{@cells["C4"].render(reveal)}\n" +
@@ -53,6 +57,11 @@ class Board
     coordinates.all? do |coordinate|
       @cells[coordinate].empty?
     end
+  end
+
+  def compare_all_length(ship, coordinates)
+    ship.length == coordinates.length && @cells[coordinates].nil?
+    @ship_length = ship.length
   end
 
   def ord_arrays(coordinates)
@@ -71,22 +80,19 @@ class Board
   end
 
   def letter_cons
-    @letter_array.each_cons(2).all? { |x, y| x == y - 1 } || @letter_array.each_cons(2).all? { |x, y| x == y }
+    (65..68).each_cons(@ship_length).include?(@letter_array)  || @letter_array.uniq.count == 1
   end
 
   def num_cons
-    @num_array.each_cons(2).all? { |x, y| x == y - 1 } || @num_array.each_cons(2).all? { |x, y| x == y }
+    (1..4).each_cons(@ship_length).include?(@num_array)  || @num_array.uniq.count == 1
   end
 
   def diagonal_cons
-    @letter_array.each_cons(2).all? { |x, y| x == y - 1 } && @num_array.each_cons(2).all? { |x, y| x == y - 1 }
+    ((@letter_array.uniq.count == 1)  && (@num_array.uniq.count == 1)) || ((65..68).each_cons(@ship_length).include?(@letter_array) && (1..4).each_cons(@ship_length).include?(@num_array))
   end
 
   def compare_all_coord
-    (letter_cons && num_cons == true) && (diagonal_cons == false)
+    (letter_cons && num_cons) && (diagonal_cons == false)
   end
 
-  def compare_all_length(ship, coordinates)
-    ship.length == coordinates.length && @cells[coordinates].nil?
-  end
 end
