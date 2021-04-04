@@ -12,7 +12,7 @@ describe Turn do
     turn = Turn.new
 
     it "exists" do
-      expect(turn).to be an_instance_of(Turn)
+      expect(turn).to be_an_instance_of(Turn)
     end
   end
 end
