@@ -42,10 +42,10 @@ class Cell
       "X"
     elsif ship_hit?
       "H"
+    elsif empty? || (@fire == false && reveal == false)
+      "."
     elsif reveal == true && @fire == false
       "S"
-    elsif @fire == false
-      "."
     end
   end
 

@@ -1,10 +1,12 @@
 class Board
-  attr_reader :cells,
-              :letter_array,
-              :num_array
+  attr_accessor :cells
+  attr_reader :letter_array,
+              :num_array,
+              :spaces
 
   def initialize
     @cells = {}
+    @spaces = []
     cell_creation
   end
 
@@ -19,6 +21,38 @@ class Board
 
   def valid_coordinate?(cell)
     @cells.key?(cell)
+  end
+
+  def valid_placement?(ship, coordinates)
+    if compare_all_length(ship, coordinates) && not_overlapping(coordinates)
+      ord_arrays(coordinates)
+        return true if compare_all_coord
+          false
+    else
+      false
+    end
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.each do |coordinate|
+        (@cells[coordinate]).place_ship(ship)
+      end
+    end
+  end
+
+  def render(reveal = false)
+     " 1 2 3 4 \n" +
+    "A    #{@cells["A1"].render(reveal)} #{@cells["A2"].render(reveal)} #{@cells["A3"].render(reveal)} #{@cells["A4"].render(reveal)}\n" +
+    "B    #{@cells["B1"].render(reveal)} #{@cells["B2"].render(reveal)} #{@cells["B3"].render(reveal)} #{@cells["B4"].render(reveal)}\n" +
+    "C    #{@cells["C1"].render(reveal)} #{@cells["C2"].render(reveal)} #{@cells["C3"].render(reveal)} #{@cells["C4"].render(reveal)}\n" +
+    "D    #{@cells["D1"].render(reveal)} #{@cells["D2"].render(reveal)} #{@cells["D3"].render(reveal)} #{@cells["D4"].render(reveal)}\n"
+  end
+
+  def not_overlapping(coordinates)
+    coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
+    end
   end
 
   def ord_arrays(coordinates)
@@ -48,22 +82,11 @@ class Board
     @letter_array.each_cons(2).all? { |x, y| x == y - 1 } && @num_array.each_cons(2).all? { |x, y| x == y - 1 }
   end
 
-  def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length && @cells[coordinates].nil?
-      ord_arrays(coordinates)
-        if (letter_cons && num_cons == true) && (diagonal_cons == false)
-          true
-        else
-          false
-        end
-    else
-      false
-    end
+  def compare_all_coord
+    (letter_cons && num_cons == true) && (diagonal_cons == false)
   end
 
-  def place(ship, coordinates)
-    coordinates.each do |coordinate|
-      (@cells[coordinate]).place_ship(ship)
-    end
+  def compare_all_length(ship, coordinates)
+    ship.length == coordinates.length && @cells[coordinates].nil?
   end
 end
