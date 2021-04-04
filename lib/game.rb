@@ -1,6 +1,6 @@
 class Game
   attr_reader :board,
-                   :player_input
+              :player_input
 
   def initialize(board)
     @board = Board.new
@@ -35,7 +35,7 @@ class Game
   # must be able to tell if they are put in correctly - valid_placement?
 
   #Create a message/method for user to enter sub coordinates
-  
+
   # Create a message/method for user entering an invalid sequence
 
 
