@@ -23,7 +23,7 @@ describe Game do
     game = Game.new(board)
 
     it 'can render a board' do
-      expected = " 1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
+      expected = "  1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
       expect(game.start).to eq(expected)
     end
   end
