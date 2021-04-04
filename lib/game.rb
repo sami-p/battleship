@@ -84,8 +84,11 @@ class Game
     puts "Alrighty, I've placed my ships on my board."
     puts "Now it's your turn!"
     puts " "
-    puts "The Cruiser is three units long and the Submarine is two units long."
-    puts "Please enter your coordinates alphabetically and sequencially."
+    puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
+    puts "Your ships are The Cruiser and The Submarine."
+    puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
+    puts "Please enter your coordinates as such: A1 B1 C1"
+    puts "(Alphabetically or sequentially, and with a space in between.)"
     puts "Oh right! Also, your ships must lay on a horizontal or vertical axis."
     puts "             -Phew!- Almost forgot to tell you that!"
     puts " "
@@ -95,7 +98,7 @@ class Game
 
   def cruiser_prompt
     puts " "
-    puts "Enter the coordinates for the Cruiser (remember its three consecutive units)"
+    puts "Enter the coordinates for the Cruiser (remember its 3 consecutive units)"
     print "> "
     @player_input = input.upcase.split
   end
@@ -104,7 +107,7 @@ class Game
     puts " "
     puts @board.render(true)
     puts " "
-    puts "Enter the coordinates for the Submarine (remember its two consecutive units)"
+    puts "Enter the coordinates for the Submarine (remember its 2 consecutive units)"
     print "> "
     @player_input = input.upcase.split
     puts " "
