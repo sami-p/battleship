@@ -1,5 +1,3 @@
-require './lib/cell'
-
 class Board
   attr_accessor :cells
   attr_reader :letter_array,
@@ -13,7 +11,7 @@ class Board
 
   def cell_creation
     ["A", "B", "C", "D"].each do |letter|
-      ["1", "2", "3", "4"].each do |number| 
+      ["1", "2", "3", "4"].each do |number|
         name = letter + number
         @cells[name] = Cell.new(name)
       end
