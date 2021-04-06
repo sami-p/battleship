@@ -40,7 +40,7 @@ class Game
     elsif @player_input == 'q'
       quit_message
     end
-  end 
+  end
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
@@ -48,7 +48,13 @@ class Game
     print "> "
     @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
   end
-# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
+
+  def game_start_error
+    puts " "
+    puts "❌⛔️ Please try again. Did you mean 'p' for play or 'q' for quit? ⛔️❌"
+    puts " "
+  end
+
   def player_placement
     @carl_computer.computer_place_ship(@cruiser)
     @carl_computer.computer_place_ship(@submarine)
@@ -144,17 +150,10 @@ class Game
     puts "~ " * 14
   end
 
-  def game_start_error
-    puts " "
-    puts "❌⛔️ Please try again. Did you mean 'p' for play or 'q' for quit? ❌⛔️"
-    puts " "
-  end
-
   def take_turn
       carlcomputer_game_board
       players_game_board
-      @player_shot = $stdin.gets.chomp
-      puts @carls_placed_board
+      @player_shot = input.downcase
   end
 
   def carlcomputer_game_board
