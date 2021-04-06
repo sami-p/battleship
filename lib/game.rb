@@ -83,20 +83,18 @@ class Game
       end
     end
 
-    board.place(submarine, @player_input)
+    @players_layout = board.place(submarine, @player_input)
     puts @board.render(true)
 
-    puts " "
-    puts "~ " * 14
-    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
-    puts "~ " * 14
+    ready_to_play
     take_turn
   end
 
   def take_turn
-    @turn.show_boards
+      carlcomputer_game_board
+      players_game_baord
+      @player_shot = $stdin.gets.chomp
   end
-
 
 
   def input
@@ -146,5 +144,27 @@ class Game
     puts "Oh bummer, you're all done."
   end
 
+  def ready_to_play
+    puts " "
+    puts "~ " * 14
+    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
+    puts "~ " * 14
+  end
+
+  def carlcomputer_game_board
+    puts " "
+    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
+    puts @carl_board.render
+    puts " "
+    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
+  end
+
+  def players_game_baord
+    @players_layout
+    puts @board.render(true)
+    puts " "
+    puts "Take your shot at Carl's ships!"
+    print "> "
+  end
   # pick a winner from a list
 end
