@@ -1,9 +1,9 @@
 class CarlComputer
   attr_accessor :carl_board,
-                   :carl_shots,
-                   :ship_2,
-                   :ship_3,
-                   :ships
+                :carl_shots,
+                :ship_2,
+                :ship_3,
+                :ships
 
   def initialize(carl_board)
     @carl_board = carl_board
@@ -40,4 +40,3 @@ class CarlComputer
     @carl_shots.delete(guess)
   end
 end
-  
