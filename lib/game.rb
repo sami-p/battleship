@@ -2,6 +2,7 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/carl_computer'
+require './lib/turn'
 
 class Game
   attr_reader :cruiser,
@@ -9,6 +10,7 @@ class Game
                    :board,
                    :carl_board,
                    :carl_computer,
+                   :turn,
                    :player_input
 
   def initialize(board)
@@ -17,6 +19,7 @@ class Game
     @board = Board.new
     @carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
+    @turn = Turn.new
     @player_input = player_input
   end
 
@@ -82,7 +85,19 @@ class Game
 
     board.place(submarine, @player_input)
     puts @board.render(true)
+
+    puts " "
+    puts "~ " * 14
+    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
+    puts "~ " * 14
+    take_turn
   end
+
+  def take_turn
+    @turn.show_boards
+  end
+
+
 
   def input
     gets.chomp
@@ -90,7 +105,7 @@ class Game
 
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board."
+    puts "Alrighty, I've placed my ships on my board." #add Carl's name
     puts "Now it's your turn!"
     puts " "
     puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
