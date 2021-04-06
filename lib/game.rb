@@ -8,9 +8,8 @@ class Game
   attr_reader :cruiser,
               :submarine,
               :board,
-              :carl_board,
-              :carl_computer,
-              :turn
+              :carl_board
+              # :turn
 
   def initialize(board)
     @cruiser = Ship.new("Cruiser", 3)
@@ -18,7 +17,7 @@ class Game
     @board = Board.new
     @carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
-    @turn = Turn.new
+    # @turn = Turn.new
   end
 
   def start
@@ -30,6 +29,7 @@ class Game
 
   def play_or_quit_input
     until @player_input == 'p' || @player_input == 'q'
+      game_start_error
       welcome_message
     end
   end
@@ -39,8 +39,8 @@ class Game
       player_placement
     elsif @player_input == 'q'
       quit_message
-    end# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
-  end
+    end
+  end 
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
@@ -144,6 +144,12 @@ class Game
     puts "~ " * 14
   end
 
+  def game_start_error
+    puts " "
+    puts "❌⛔️ Please try again. Did you mean 'p' for play or 'q' for quit? ❌⛔️"
+    puts " "
+  end
+
   def take_turn
       carlcomputer_game_board
       players_game_board
@@ -166,5 +172,5 @@ class Game
     puts "Take your shot at Carl's ships!"
     print "> "
   end
-  # pick a winner from a list
 end
+  # pick a winner from a list
