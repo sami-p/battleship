@@ -1,17 +1,25 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/carl_computer'
+require './lib/turn'
 
 class Game
   attr_reader :cruiser,
                    :submarine,
                    :board,
+                   :carl_board,
+                   :carl_computer,
+                   :turn,
                    :player_input
 
   def initialize(board)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
+    @carl_board = Board.new
+    @carl_computer = CarlComputer.new(carl_board)
+    @turn = Turn.new
     @player_input = player_input
   end
 
@@ -33,26 +41,30 @@ class Game
       player_placement
     elsif @player_input == 'q'
       quit_message
-    end
+    end# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
   end
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = input.downcase
+    @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
   end
-
+# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
   def player_placement
+    @carl_computer.computer_place_ship(@cruiser)
+    @carl_computer.computer_place_ship(@submarine)
+    puts '' ''
+    puts @carl_board.render(true)
 
     placement_instructions
-    if !board.valid_placement?(cruiser, @player_input)
+    unless board.valid_placement?(cruiser, @player_input)
       invalid_coordinates
     end
 
     until board.valid_placement?(cruiser, @player_input)
       placement_instructions
-      if !board.valid_placement?(cruiser, @player_input)
+      unless board.valid_placement?(cruiser, @player_input)
         invalid_coordinates
       end
     end
@@ -60,20 +72,30 @@ class Game
     board.place(cruiser, @player_input)
 
     submarine_prompt
-    if !board.valid_placement?(submarine, @player_input)
+    unless board.valid_placement?(submarine, @player_input)
       invalid_coordinates
     end
 
     until board.valid_placement?(submarine, @player_input)
       submarine_prompt
-      if !board.valid_placement?(submarine, @player_input)
+      unless board.valid_placement?(submarine, @player_input)
         invalid_coordinates
       end
     end
 
-    board.place(submarine, @player_input)
-    puts puts @board.render(true)
+    @players_layout = board.place(submarine, @player_input)
+    puts @board.render(true)
+
+    ready_to_play
+    take_turn
   end
+
+  def take_turn
+      carlcomputer_game_board
+      players_game_baord
+      @player_shot = $stdin.gets.chomp
+  end
+
 
   def input
     gets.chomp
@@ -81,7 +103,7 @@ class Game
 
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board."
+    puts "Alrighty, I've placed my ships on my board." #add Carl's name
     puts "Now it's your turn!"
     puts " "
     puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
@@ -121,4 +143,28 @@ class Game
   def quit_message
     puts "Oh bummer, you're all done."
   end
+
+  def ready_to_play
+    puts " "
+    puts "~ " * 14
+    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
+    puts "~ " * 14
+  end
+
+  def carlcomputer_game_board
+    puts " "
+    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
+    puts @carl_board.render
+    puts " "
+    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
+  end
+
+  def players_game_baord
+    @players_layout
+    puts @board.render(true)
+    puts " "
+    puts "Take your shot at Carl's ships!"
+    print "> "
+  end
+  # pick a winner from a list
 end
