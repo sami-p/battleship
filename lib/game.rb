@@ -10,8 +10,7 @@ class Game
               :board,
               :carl_board,
               :carl_computer,
-              :turn,
-              :player_input
+              :turn
 
   def initialize(board)
     @cruiser = Ship.new("Cruiser", 3)
@@ -20,7 +19,6 @@ class Game
     @carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
     @turn = Turn.new
-    @player_input = player_input
   end
 
   def start
@@ -148,7 +146,7 @@ class Game
 
   def take_turn
       carlcomputer_game_board
-      players_game_baord
+      players_game_board
       @player_shot = $stdin.gets.chomp
       puts @carls_placed_board
   end
@@ -160,7 +158,7 @@ class Game
     puts " "
   end
 
-  def players_game_baord
+  def players_game_board
     puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
     @players_layout
     puts @board.render(true)
