@@ -7,6 +7,7 @@ class Game
   attr_reader :cruiser,
                    :submarine,
                    :board,
+                   :carl_board,
                    :carl_computer,
                    :player_input
 
@@ -14,7 +15,8 @@ class Game
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
-    @carl_computer = CarlComputer.new
+    @carl_board = Board.new
+    @carl_computer = CarlComputer.new(carl_board)
     @player_input = player_input
   end
 
@@ -47,9 +49,10 @@ class Game
   end
 # Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
   def player_placement
-    @carl_computer.cruiser_place
-    @carl_computer.sub_place
-    @carl_board.render(true)
+    @carl_computer.computer_place_ship(@cruiser)
+    @carl_computer.computer_place_ship(@submarine)
+    puts '' ''
+    puts @carl_board.render(true)
 
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
@@ -58,7 +61,7 @@ class Game
 
     until board.valid_placement?(cruiser, @player_input)
       placement_instructions
-      if !board.valid_placement?(cruiser, @player_input)
+      unless board.valid_placement?(cruiser, @player_input)
         invalid_coordinates
       end
     end
@@ -66,19 +69,19 @@ class Game
     board.place(cruiser, @player_input)
 
     submarine_prompt
-    if !board.valid_placement?(submarine, @player_input)
+    unless board.valid_placement?(submarine, @player_input)
       invalid_coordinates
     end
 
     until board.valid_placement?(submarine, @player_input)
       submarine_prompt
-      if !board.valid_placement?(submarine, @player_input)
+      unless board.valid_placement?(submarine, @player_input)
         invalid_coordinates
       end
     end
 
     board.place(submarine, @player_input)
-    puts puts @board.render(true)
+    puts @board.render(true)
   end
 
   def input
