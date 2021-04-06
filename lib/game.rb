@@ -1,17 +1,20 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/carl_computer'
 
 class Game
   attr_reader :cruiser,
                    :submarine,
                    :board,
+                   :carl_computer,
                    :player_input
 
   def initialize(board)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
+    @carl_computer = CarlComputer.new
     @player_input = player_input
   end
 
@@ -33,20 +36,23 @@ class Game
       player_placement
     elsif @player_input == 'q'
       quit_message
-    end
+    end# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
   end
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = input.downcase
+    @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
   end
-
+# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
   def player_placement
+    @carl_computer.cruiser_place
+    @carl_computer.sub_place
+    @carl_board.render(true)
 
     placement_instructions
-    if !board.valid_placement?(cruiser, @player_input)
+    unless board.valid_placement?(cruiser, @player_input)
       invalid_coordinates
     end
 
@@ -121,4 +127,6 @@ class Game
   def quit_message
     puts "Oh bummer, you're all done."
   end
+
+  # pick a winner from a list
 end
