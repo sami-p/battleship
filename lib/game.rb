@@ -6,12 +6,12 @@ require './lib/turn'
 
 class Game
   attr_reader :cruiser,
-                   :submarine,
-                   :board,
-                   :carl_board,
-                   :carl_computer,
-                   :turn,
-                   :player_input
+              :submarine,
+              :board,
+              :carl_board,
+              :carl_computer,
+              :turn,
+              :player_input
 
   def initialize(board)
     @cruiser = Ship.new("Cruiser", 3)
@@ -56,6 +56,7 @@ class Game
     @carl_computer.computer_place_ship(@submarine)
     puts '' ''
     puts @carl_board.render(true)
+    puts @carls_placed_board
 
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
@@ -83,19 +84,13 @@ class Game
       end
     end
 
-    @players_layout = board.place(submarine, @player_input)
-    puts @board.render(true)
+    board.place(submarine, @player_input)
+    @players_layout = @board.render(true)
+    puts @players_layout
 
     ready_to_play
     take_turn
   end
-
-  def take_turn
-      carlcomputer_game_board
-      players_game_baord
-      @player_shot = $stdin.gets.chomp
-  end
-
 
   def input
     gets.chomp
@@ -151,15 +146,22 @@ class Game
     puts "~ " * 14
   end
 
+  def take_turn
+      carlcomputer_game_board
+      players_game_baord
+      @player_shot = $stdin.gets.chomp
+      puts @carls_placed_board
+  end
+
   def carlcomputer_game_board
     puts " "
     puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
     puts @carl_board.render
     puts " "
-    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
   end
 
   def players_game_baord
+    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
     @players_layout
     puts @board.render(true)
     puts " "
