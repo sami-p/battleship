@@ -1,7 +1,6 @@
 require 'rspec'
 require './lib/game'
 require './lib/board'
-require './lib/turn'
 require './lib/cell'
 require './lib/carl_computer'
 
