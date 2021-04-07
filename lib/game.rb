@@ -202,7 +202,7 @@ class Game
     puts "Alrighty, I've placed my ships on my board."
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain #{@name_input}!" # Insert method to take captain name. Move to sooner line
+    puts "Ahoy Captain #{@name_input}!"
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
