@@ -6,18 +6,20 @@ require './lib/turn'
 
 class Game
   attr_reader :cruiser,
-              :submarine,
-              :board,
-              :carl_board
-              # :turn
+                   :submarine,
+                   :board,
+                   :carl_computer
+                   # :turn
 
-  def initialize(board)
+  def initialize #(board)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
-    @carl_board = Board.new
+    carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
     # @turn = Turn.new
+    # @carls_shots = @carl_computer.cells.keys
+    @player_shots = @board.cells.keys
   end
 
   def start
@@ -29,7 +31,6 @@ class Game
 
   def play_or_quit_input
     until @player_input == 'p' || @player_input == 'q'
-      game_start_error
       welcome_message
     end
   end
@@ -48,20 +49,13 @@ class Game
     print "> "
     @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
   end
-
-  def game_start_error
-    puts " "
-    puts "❌⛔️ Please try again. Did you mean 'p' for play or 'q' for quit? ⛔️❌"
-    puts " "
-  end
+# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
 
   def player_placement
     @carl_computer.computer_place_ship(@cruiser)
     @carl_computer.computer_place_ship(@submarine)
     puts '' ''
-    puts @carl_board.render(true)
-    puts @carls_placed_board
-
+    puts @carl_computer.carl_board.render(true)
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
       invalid_coordinates
@@ -75,8 +69,8 @@ class Game
     end
 
     board.place(cruiser, @player_input)
-
     submarine_prompt
+    
     unless board.valid_placement?(submarine, @player_input)
       invalid_coordinates
     end
@@ -89,35 +83,39 @@ class Game
     end
 
     board.place(submarine, @player_input)
-    @players_layout = @board.render(true)
-    puts @players_layout
-
+    puts @board.render(true)
     ready_to_play
     take_turn
+  end
+
+  def take_turn
+    carlcomputer_game_board
+    players_game_board
+    @player_shot = input.upcase
+    carl_fires
+    carlcomputer_game_board
+    players_game_board
+    player_fires
+
+    until @player_shot == 'q'
+      carl_fires
+      carlcomputer_game_board
+      players_game_board
+      @player_shot = input.upcase
+      player_fires
+    end
   end
 
   def input
     gets.chomp
   end
-  #
-  # def name_input
-  #   gets.chomp
-  # end
-
-  # def player_name
-  #   puts " "
-  #   puts "That's the spirit! Now enter your name to get started."
-  #   print ">  "
-  #   @name_input = name_input.upcase.split
-  # end
 
   def placement_instructions
-    puts " "
-    puts "Ahoy Captain !" # Insert player name
     puts " "
     puts "Alrighty, I've placed my ships on my board." #add Carl's name
     puts "Now it's your turn!"
     puts " "
+    puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -162,45 +160,29 @@ class Game
     puts "~ " * 14
   end
 
-  def take_turn
-      carlcomputer_game_board
-      players_game_board
-      @player_shot = input.downcase
-
-      until @player_shot == 'q'
-     carl_fires
-     puts @board.render(true)
-     @player_shot = input.upcase
-     player_fires
-   end
-  end
-
   def carl_fires
     guess = @carl_computer.carl_shots.sample
-
     @board.cells[guess].fire_upon
     @carl_computer.carl_shots.delete(guess)
   end
 
   def player_fires
-      @carl_computer.carl_board.cells[@player_shot].fire_upon
-      @player_shots.delete(@player_shot)
-    end
+    @carl_computer.carl_board.cells[@player_shot].fire_upon
+    @player_shots.delete(@player_shot)
+  end
 
   def carlcomputer_game_board
     puts " "
     puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
-    puts @carl_board.render
+    puts @carl_computer.carl_board.render(true)
     puts " "
   end
 
   def players_game_board
     puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
-    @players_layout
     puts @board.render(true)
     puts " "
     puts "Take your shot at Carl's ships!"
     print "> "
   end
 end
-  # pick a winner from a list
