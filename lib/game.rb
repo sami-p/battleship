@@ -138,10 +138,10 @@ class Game
   def end_game
     puts " "
     if computer_ships_sunk
-      puts "You won you sly fox, you!"
+      puts "✨🦊✨" " You WON you sly fox, you! " "✨🦊✨"
       puts " "
     elsif player_ships_sunk
-      puts "Welp, I'm the winner. Bummer for you."
+      puts "🩸💀🩸" "Welp, I'm the winner. Bummer for you. " "🩸💀🩸"
       puts " "
     end
     restart
