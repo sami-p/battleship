@@ -100,14 +100,14 @@ describe Board do
     cruiser = Ship.new("Cruiser", 3)
 
     it 'renders board' do
-      expected = "  1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
+      expected = "  1️⃣  2️⃣  3️⃣  4️⃣ \nA ・ ・ ・ ・\nB ・ ・ ・ ・\nC ・ ・ ・ ・\nD ・ ・ ・ ・\n"
 
       expect(board.render).to eq(expected)
     end
 
     it 'renders true' do
       board.place(cruiser, ["A1", "A2", "A3"])
-      expected = "  1 2 3 4 \nA S S S .\nB . . . .\nC . . . .\nD . . . .\n"
+      expected = "  1️⃣  2️⃣  3️⃣  4️⃣ \nA ⛵️ ⛵️ ⛵️ ・\nB ・ ・ ・ ・\nC ・ ・ ・ ・\nD ・ ・ ・ ・\n"
 
       expect(board.render(true)).to eq(expected)
     end
