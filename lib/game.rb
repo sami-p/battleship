@@ -93,11 +93,12 @@ class Game
     carlcomputer_game_board
     players_game_board
     @player_shot = input.upcase
-    until @player_shot == 'q'
+
+    until computer_ships_sunk || player_ships_sunk
     shot_not_valid = true
     carlcomputer_game_board
     players_game_board
-    # @player_shot = input.upcase
+
     while shot_not_valid == true
       if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
         invalid_coordinates
@@ -109,11 +110,6 @@ class Game
         shot_not_valid = false
       end
     end
-    # carl_fires
-    # carlcomputer_game_board
-    # players_game_board
-    # player_fires
-
 
       player_fires
       carl_fires
