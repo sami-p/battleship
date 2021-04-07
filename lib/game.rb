@@ -99,8 +99,8 @@ class Game
       while shot_not_valid == true
         if @player_shot == "CHEATER"
           @cheat = true
-          puts "Okay, you can cheat now."
-          puts "Put another coordinate in"
+          puts "Okay FINE, you can cheat now."
+          puts "Put another coordinate in:"
           print "> "
           @player_shot = input.upcase
         elsif @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
@@ -173,7 +173,7 @@ class Game
     @name_input = input.upcase
     puts " "
   end
-  
+
   def placement_instructions
     puts " "
     puts "Alrighty, I've placed my ships on my board."
@@ -243,19 +243,19 @@ class Game
     if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
       puts "Your shot at #{@last_shot_player} was a MISS, bummer."
     elsif @carl_computer.carl_board.cells[@last_shot_player].render == "X"
-      puts puts "You SUNK MY SHIP! Noooo!!!!"
+      puts "You SUNK MY SHIP! Noooo!!!!"
     elsif @carl_computer.carl_board.cells[@last_shot_player].render == "H"
-      puts puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
+      puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
     end
   end
 
   def carlcomp_shot_messages
     if @board.cells[@last_shot_carl].render == "M"
-      puts "My shot at #{@last_shot_carl} was a MISS, bummer."
+      puts "NOOO! My shot at #{@last_shot_carl} was a MISS, bummer."
     elsif @board.cells[@last_shot_carl].render == "X"
-      puts "I, Carl, SUNK Your SHIP! Muhahaha!!"
+      puts "I, Carl, SUNK Your SHIP! Muwhahaha!!"
     elsif @board.cells[@last_shot_carl].render == "H"
-      puts "My shot at #{@last_shot_carl} was a HIT."
+      puts "Yay me! My shot at #{@last_shot_carl} was a HIT."
     end
   end
 
@@ -289,6 +289,4 @@ class Game
      cell.ship.sunk?
     end
   end
-
-
 end
