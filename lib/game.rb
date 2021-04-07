@@ -238,14 +238,13 @@ class Game
     puts " "
   end
 
-
-  def player_name
-    name_input = input.gets.chomp
-    puts " "
-    puts "That's the spirit! Enter your name to gets started:"
-    print "> "
-    puts " "
-  end
+  # def player_name
+  #   name_input = input.gets.chomp
+  #   puts " "
+  #   puts "That's the spirit! Enter your name to gets started:"
+  #   print "> "
+  #   puts " "
+  # end
 
   def ready_to_play
     puts " "
@@ -256,6 +255,7 @@ class Game
 
   def carl_fires
     guess = @carl_computer.carl_shots.sample
+    last_shot_carl = guess
     @board.cells[guess].fire_upon
     @carl_computer.carl_shots.delete(guess)
   end
