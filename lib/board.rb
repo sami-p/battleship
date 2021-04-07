@@ -79,7 +79,6 @@ class Board
 
   def letter_cons
     (65..68).each_cons(@ship_length).include?(@letter_array)  || @letter_array.uniq.count == 1
-    # @letter_array.each_cons(2) { |x, y| x == y } || @letter_array.each_cons(2) { |x, y| x == y - 1 }
   end
 
   def num_cons
