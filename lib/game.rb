@@ -95,21 +95,19 @@ class Game
     @player_shot = input.upcase
 
     until computer_ships_sunk || player_ships_sunk
-    shot_not_valid = true
-    carlcomputer_game_board
-    players_game_board
+      shot_not_valid = true
 
-    while shot_not_valid == true
-      if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
-        invalid_coordinates
-        @player_shot = input.upcase
-      elsif @carl_computer.carl_board.cells[@player_shot].fired_upon? == true
-        puts "Oops! You've already fired there. Try again and pick a new coordinate!"
-        @player_shot = input.upcase
-      else
-        shot_not_valid = false
+      while shot_not_valid == true
+        if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
+          invalid_coordinates
+          @player_shot = input.upcase
+        elsif @carl_computer.carl_board.cells[@player_shot].fired_upon? == true
+          puts "Oops! You've already fired there. Try again and pick a new coordinate!"
+          @player_shot = input.upcase
+        else
+          shot_not_valid = false
+        end
       end
-    end
 
       player_fires
       carl_fires
@@ -117,6 +115,19 @@ class Game
       players_game_board
       @player_shot = input.upcase
     end
+    end_game
+  end
+
+  def end_game
+    puts " "
+    if computer_ships_sunk
+      puts "You won you sly fox, you!"
+      puts " "
+    elsif player_ships_sunk
+      puts "Welp, I'm the winner. Bummer for you."
+      puts " "
+    end
+    restart
   end
 
   def input
@@ -169,6 +180,15 @@ class Game
   def game_start_error
     puts " "
     puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
+    puts " "
+  end
+
+
+  def player_name
+    name_input = input.gets.chomp
+    puts " "
+    puts "That's the spirit! Enter your name to gets started:"
+    print "> "
     puts " "
   end
 
