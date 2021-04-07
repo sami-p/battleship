@@ -20,8 +20,6 @@ class Game
     @board = Board.new
     carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
-    # @turn = Turn.new
-    # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
     @cheat = false
   end
@@ -32,8 +30,6 @@ class Game
     @board = Board.new
     carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
-    # @turn = Turn.new
-    # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
     start
   end
