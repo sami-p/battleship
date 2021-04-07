@@ -157,6 +157,16 @@ class Game
     end
   end
 
+  def carlcomp_shot_messages
+    if @board.cells[@last_shot_carl].render == "M"
+      puts "My shot at #{@last_shot_carl} was a MISS, bummer."
+    elsif @board.cells[@last_shot_carl].render == "X"
+      puts puts "I, Carl, SUNK Your SHIP! Muhahaha!!"
+    elsif @board.cells[@last_shot_carl].render == "H"
+      puts puts "My shot at #{@last_shot_carl} was a HIT."
+    end
+  end
+
   def input
     gets.chomp
   end
