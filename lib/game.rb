@@ -8,6 +8,7 @@ class Game
               :submarine,
               :board,
               :carl_computer,
+              :player_shots,
               :last_shot_player,
               :last_shot_carl,
               :name_input,
