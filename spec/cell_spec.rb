@@ -60,27 +60,27 @@ describe Cell do
     cruiser = Ship.new("Cruiser", 3)
 
     it "can tell if the cell has not been fired upon" do
-      expect(cell_1.render).to eq(".")
+      expect(cell_1.render).to eq("・")
 
       cell_1.fire_upon
 
-      expect(cell_1.render).to eq("M")
+      expect(cell_1.render).to eq("Ⓜ️")
     end
 
     it "can show a ship is in the cell" do
       cell_2.place_ship(cruiser)
 
-      expect(cell_2.render).to eq(".")
+      expect(cell_2.render).to eq("・")
     end
 
     it "can show where the ship is" do
-      expect(cell_2.render(true)).to eq("S")
+      expect(cell_2.render(true)).to eq("⛵️")
     end
 
     it "can show a hit" do
       cell_2.fire_upon
 
-      expect(cell_2.render).to eq("H")
+      expect(cell_2.render).to eq("💥")
     end
 
     it "is not sunk yet" do
@@ -92,7 +92,7 @@ describe Cell do
       cruiser.hit
 
       expect(cruiser.sunk?).to eq(true)
-      expect(cell_2.render).to eq("X")
+      expect(cell_2.render).to eq("🔥")
     end
   end
 end

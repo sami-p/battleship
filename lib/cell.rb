@@ -37,15 +37,15 @@ class Cell
 
   def render(reveal = false)
     if miss?
-      "M"
+      "Ⓜ️ "
     elsif ship_sunk?
-      "X"
+      "🔥"
     elsif ship_hit?
-      "H"
+      "💥"
     elsif empty? || (@fire == false && reveal == false)
-      "."
+      "・"
     elsif reveal == true && @fire == false
-      "S"
+      "⛵️"
     end
   end
 

@@ -35,31 +35,16 @@ class Game
   end
 
   def start
-    welcome_message
+    starting_message
     play_or_quit_input
     begin_or_end_game
     @board.render
   end
 
-  def play_or_quit_input
-    until @player_input == 'p' || @player_input == 'q'
-      game_start_error
-      welcome_message
-    end
-  end
 
-  def begin_or_end_game
-    if @player_input == 'p'
-      player_name
-      player_placement
-    elsif @player_input == 'q'
-      quit_message
-    end
-  end
-
-  def welcome_message
+  def starting_message
     puts "💥 Welcome to BATTLESHIP 💥"
-    puts "I'm Carl the Computer, want to play?"
+    puts "Hi! I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
     @player_input = input.downcase
@@ -106,16 +91,16 @@ class Game
     carlcomputer_game_board
     players_game_board
 
-    until computer_ships_sunk || player_ships_sunk
+    until carlcomputer_ships_sunk || player_ships_sunk
       player_prompt
       @player_shot = input.upcase
-      shot_not_valid = true
+      invalid_shot = true
 
-      while shot_not_valid == true
+      while invalid_shot == true
         if @player_shot == "CHEATER"
           @cheat = true
-          puts "Okay, you can cheat now."
-          puts "Put another coordinate in"
+          puts "Okay FINE, you can cheat now."
+          puts "Put another coordinate in:"
           print "> "
           @player_shot = input.upcase
         elsif @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
@@ -125,23 +110,23 @@ class Game
           puts "Oops! You've already fired there. Try again and pick a new coordinate!"
           @player_shot = input.upcase
         else
-          shot_not_valid = false
+          invalid_shot = false
         end
       end
 
       player_fires
-      carl_fires
+      carlcomputer_fires
       carlcomputer_game_board
       players_game_board
-      carlcomp_shot_messages
+      carlcomputer_shot_messages
       player_shot_messages
     end
-  end_game
+    end_game
   end
 
   def end_game
     puts " "
-    if computer_ships_sunk
+    if carlcomputer_ships_sunk
       puts "✨🦊✨" " #{@name_input}! You WON you sly fox, you! " "✨🦊✨"
       puts " "
     elsif player_ships_sunk
@@ -151,41 +136,10 @@ class Game
     restart
   end
 
-  def player_shot_messages
-    if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
-      puts "Your shot at #{@last_shot_player} was a MISS, bummer."
-    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "X"
-      puts puts "You SUNK MY SHIP! Noooo!!!!"
-    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "H"
-      puts puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
-    end
-  end
-
-  def carlcomp_shot_messages
-    if @board.cells[@last_shot_carl].render == "M"
-      puts "My shot at #{@last_shot_carl} was a MISS, bummer."
-    elsif @board.cells[@last_shot_carl].render == "X"
-      puts "I, Carl, SUNK Your SHIP! Muhahaha!!"
-    elsif @board.cells[@last_shot_carl].render == "H"
-      puts "My shot at #{@last_shot_carl} was a HIT."
-    end
-  end
-
-  def computer_ships_sunk
-    computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
-      cell.ship != nil
-    end
-    computer_cells.all? do |cell|
-      cell.ship.sunk?
-    end
-  end
-
-  def player_ships_sunk
-   player_cells = @board.cells.values.find_all do |cell|
-     cell.ship != nil
-   end
-   player_cells.all? do |cell|
-     cell.ship.sunk?
+  def play_or_quit_input
+    until @player_input == 'p' || @player_input == 'q'
+      game_start_error
+      starting_message
     end
   end
 
@@ -193,12 +147,40 @@ class Game
     gets.chomp
   end
 
+  def begin_or_end_game
+    if @player_input == 'p'
+      player_name
+      player_placement
+    elsif @player_input == 'q'
+      quit_message
+    end
+  end
+
+  def quit_message
+    puts "Oh bummer, you don't want to play with me."
+  end
+
+  def game_start_error
+    puts " "
+    puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
+    puts " "
+  end
+
+  def player_name
+    puts " "
+    puts "That's the spirit! Enter your name to get started:"
+    print "> "
+    @name_input = input.upcase
+    puts " "
+  end
+
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board."
+    puts "Ahoy Captain #{@name_input}!"
+    puts " "
+    puts "Alrighty, I've moved my ships into position."
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain #{@name_input}!"
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -229,35 +211,57 @@ class Game
 
   def invalid_coordinates
     puts " "
-    puts "Whoops! Those coordinates aren't valid, please try again!"
-  end
-
-  def quit_message
-    puts "Oh bummer, you're all done."
-  end
-
-  def game_start_error
-    puts " "
-    puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
-    puts " "
-  end
-
-  def player_name
-    puts " "
-    puts "That's the spirit! Enter your name to get started:"
+    puts "❌ Whoops! Those coordinates aren't valid, please try again! ❌"
     print "> "
-    @name_input = input.upcase
-    puts " "
   end
 
   def ready_to_play
     puts " "
-    puts "🌊" * 14
-    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
-    puts "🌊" * 14
+    puts "🌊" * 19
+    puts "⛵️ 💣 " "NOW IT'S TIME FOR BATTLE!" " 💣 ⛵️"
+    puts "🌊" * 19
   end
 
-  def carl_fires
+  def carlcomputer_game_board
+    puts " "
+    puts "☠️ " " CARL THE COMPUTER'S BOARD " "☠️"
+    puts @carl_computer.carl_board.render(@cheat)
+    puts " "
+  end
+
+  def players_game_board
+    puts "🏴‍☠️" " CAPTAIN #{name_input} BOARD " "🏴‍☠️"
+    puts @board.render(true)
+    puts " "
+  end
+
+  def player_prompt
+    puts " "
+    puts "Take your shot at Carl's ships!"
+    print "> "
+  end
+
+  def player_shot_messages
+    if @carl_computer.carl_board.cells[@last_shot_player].render == "Ⓜ️ "
+      puts "Your shot at #{@last_shot_player} was a MISS, bummer."
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "🔥"
+      puts "You SUNK MY SHIP! Noooo!!!!"
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "💥"
+      puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
+    end
+  end
+
+  def carlcomputer_shot_messages
+    if @board.cells[@last_shot_carl].render == "Ⓜ️ "
+      puts "NOOO! My shot at #{@last_shot_carl} was a MISS."
+    elsif @board.cells[@last_shot_carl].render == "🔥"
+      puts "I, Carl, SUNK Your SHIP! Muwhahaha!!"
+    elsif @board.cells[@last_shot_carl].render == "💥"
+      puts "Yay me! My shot at #{@last_shot_carl} was a HIT."
+    end
+  end
+
+  def carlcomputer_fires
     guess = @carl_computer.carl_shots.sample
     @last_shot_carl = guess
     @board.cells[guess].fire_upon
@@ -270,22 +274,21 @@ class Game
     @player_shots.delete(@player_shot)
   end
 
-  def carlcomputer_game_board
-    puts " "
-    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
-    puts @carl_computer.carl_board.render(@cheat)
-    puts " "
+  def carlcomputer_ships_sunk
+    computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
+      cell.ship != nil
+    end
+    computer_cells.all? do |cell|
+      cell.ship.sunk?
+    end
   end
 
-  def players_game_board
-    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
-    puts @board.render(true)
-    puts " "
+  def player_ships_sunk
+   player_cells = @board.cells.values.find_all do |cell|
+     cell.ship != nil
+   end
+   player_cells.all? do |cell|
+     cell.ship.sunk?
+    end
   end
-
-  def player_prompt
-   puts " "
-   puts "Take your shot at Carl's ships!"
-   print "> "
- end
 end
