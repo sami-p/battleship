@@ -41,21 +41,6 @@ class Game
     @board.render
   end
 
-  def play_or_quit_input
-    until @player_input == 'p' || @player_input == 'q'
-      game_start_error
-      welcome_message
-    end
-  end
-
-  def begin_or_end_game
-    if @player_input == 'p'
-      player_name
-      player_placement
-    elsif @player_input == 'q'
-      quit_message
-    end
-  end
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
@@ -151,6 +136,22 @@ class Game
     restart
   end
 
+  def play_or_quit_input
+    until @player_input == 'p' || @player_input == 'q'
+      game_start_error
+      welcome_message
+    end
+  end
+
+  def begin_or_end_game
+    if @player_input == 'p'
+      player_name
+      player_placement
+    elsif @player_input == 'q'
+      quit_message
+    end
+  end
+  
   def player_shot_messages
     if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
       puts "Your shot at #{@last_shot_player} was a MISS, bummer."
