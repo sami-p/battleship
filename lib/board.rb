@@ -55,13 +55,12 @@ class Board
     ship.length == coordinates.length && @cells[coordinates].nil?
     @ship_length = ship.length
   end
-  
+
   def not_overlapping(coordinates)
     coordinates.all? do |coordinate|
       @cells[coordinate].empty?
     end
   end
-
 
   def ord_arrays(coordinates)
     letters = coordinates.map do |coordinate|
