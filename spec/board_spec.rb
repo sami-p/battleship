@@ -13,7 +13,7 @@ describe Board do
 
     it "creates cells" do
 
-      board.cell_creation
+      board.create_cells
 
       expect(board.cells.size).to eq(16)
     end
