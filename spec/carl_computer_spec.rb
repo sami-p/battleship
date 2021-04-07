@@ -1,3 +1,26 @@
+# Attempt #2
+
+# require 'rspec'
+# require './lib/carl_computer'
+# require './lib/game'
+# require './lib/board'
+# require './lib/turn'
+# require './lib/cell'
+#
+# describe CarlComputer do
+#   describe "initialize" do
+#
+#     carl = CarlComputer.new
+#
+#     it "exists" do
+#       expect(carl).to be_an_instance_of(CarlComputer)
+#     end
+#   end
+# end
+#
+
+# Attempt #1
+
 # require 'rspec'
 # require './lib/ship'
 # require './lib/cell'
@@ -14,6 +37,7 @@
 #       expect(carl).to be_an_instance_of(CarlComputer)
 #     end
 #   end
+# end
 #
 # describe "board" do
 #     carl = CarlComputer.new

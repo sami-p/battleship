@@ -15,4 +15,10 @@ describe Turn do
       expect(turn).to be_an_instance_of(Turn)
     end
   end
+
+  describe "turns" do
+    it "takes user's turns" do
+        turn = Turn.new
+    end
+  end
 end

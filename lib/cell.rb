@@ -50,14 +50,14 @@ class Cell
   end
 
   def miss?
-    @fire == true && empty? == true
+    empty? == true && @fire == true
   end
 
   def ship_sunk?
-    @fire == true && ship.sunk? == true
+   empty? == false && @fire == true && ship.sunk? == true
   end
 
   def ship_hit?
-    @fire == true && empty? == false
+    empty? == false && @fire == true && empty? == false
   end
 end
