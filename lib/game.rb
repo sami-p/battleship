@@ -121,7 +121,7 @@ class Game
       carlcomp_shot_messages
       player_shot_messages
     end
-  end_game
+    end_game
   end
 
   def end_game
@@ -157,7 +157,7 @@ class Game
   end
 
   def quit_message
-    puts "Oh bummer, you're all done."
+    puts "Oh bummer, you don't want to play with me."
   end
 
   def game_start_error
@@ -176,10 +176,11 @@ class Game
 
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board."
+    puts "Ahoy Captain #{@name_input}!"
+    puts " "
+    puts "Alrighty, I've moved my ships into position."
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain #{@name_input}!"
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -216,7 +217,7 @@ class Game
   def ready_to_play
     puts " "
     puts "🌊" * 14
-    puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
+    puts "⛵️ 💣 " "NOW IT'S TIME FOR BATTLE!" " 💣 ⛵️"
     puts "🌊" * 14
   end
 
