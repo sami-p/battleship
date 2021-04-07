@@ -44,7 +44,7 @@ class Game
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
-    puts "I'm Carl the Computer, want to play?"
+    puts "Hi! I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
     @player_input = input.downcase
@@ -216,9 +216,9 @@ class Game
 
   def ready_to_play
     puts " "
-    puts "🌊" * 14
+    puts "🌊" * 19
     puts "⛵️ 💣 " "NOW IT'S TIME FOR BATTLE!" " 💣 ⛵️"
-    puts "🌊" * 14
+    puts "🌊" * 19
   end
 
   def carlcomputer_game_board
