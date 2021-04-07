@@ -99,13 +99,25 @@ class Game
   def input
     gets.chomp
   end
+  #
+  # def name_input
+  #   gets.chomp
+  # end
+
+  # def player_name
+  #   puts " "
+  #   puts "That's the spirit! Now enter your name to get started."
+  #   print ">  "
+  #   @name_input = name_input.upcase.split
+  # end
 
   def placement_instructions
+    puts " "
+    puts "Ahoy Captain !" # Insert player name
     puts " "
     puts "Alrighty, I've placed my ships on my board." #add Carl's name
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -154,6 +166,13 @@ class Game
       carlcomputer_game_board
       players_game_board
       @player_shot = input.downcase
+
+      until @player_shot == 'q'
+     carl_fires
+     puts @board.render(true)
+     @player_shot = input.upcase
+     player_fires
+   end
   end
 
   def carlcomputer_game_board
