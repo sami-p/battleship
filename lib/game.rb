@@ -31,6 +31,7 @@ class Game
 
   def play_or_quit_input
     until @player_input == 'p' || @player_input == 'q'
+      game_start_error
       welcome_message
     end
   end
@@ -52,8 +53,8 @@ class Game
 # Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
 
   def player_placement
-    @carl_computer.computer_place_ship(@cruiser)
-    @carl_computer.computer_place_ship(@submarine)
+    @carl_computer.computer_place_ship(@carl_computer.ship_3)
+    @carl_computer.computer_place_ship(@carl_computer.ship_2)
     puts '' ''
     puts @carl_computer.carl_board.render(true)
     placement_instructions
@@ -70,7 +71,7 @@ class Game
 
     board.place(cruiser, @player_input)
     submarine_prompt
-    
+
     unless board.valid_placement?(submarine, @player_input)
       invalid_coordinates
     end
@@ -92,17 +93,33 @@ class Game
     carlcomputer_game_board
     players_game_board
     @player_shot = input.upcase
-    carl_fires
+    until @player_shot == 'q'
+    shot_not_valid = true
     carlcomputer_game_board
     players_game_board
-    player_fires
+    # @player_shot = input.upcase
+    while shot_not_valid == true
+      if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
+        invalid_coordinates
+        @player_shot = input.upcase
+      elsif @carl_computer.carl_board.cells[@player_shot].fired_upon? == true
+        puts "Oops! You've already fired there. Try again and pick a new coordinate!"
+        @player_shot = input.upcase
+      else
+        shot_not_valid = false
+      end
+    end
+    # carl_fires
+    # carlcomputer_game_board
+    # players_game_board
+    # player_fires
 
-    until @player_shot == 'q'
+
+      player_fires
       carl_fires
       carlcomputer_game_board
       players_game_board
       @player_shot = input.upcase
-      player_fires
     end
   end
 
@@ -153,6 +170,12 @@ class Game
     puts "Oh bummer, you're all done."
   end
 
+  def game_start_error
+    puts " "
+    puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
+    puts " "
+  end
+
   def ready_to_play
     puts " "
     puts "~ " * 14
@@ -184,5 +207,23 @@ class Game
     puts " "
     puts "Take your shot at Carl's ships!"
     print "> "
+  end
+
+  def computer_ships_sunk
+    computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
+      cell.ship != nil
+    end
+    computer_cells.all? do |cell|
+      cell.ship.sunk?
+    end
+  end
+
+  def player_ships_sunk
+    player_cells = @board.cells.values.find_all do |cell|
+      cell.ship != nil
+    end
+    player_cells.all? do |cell|
+      cell.ship.sunk?
+    end
   end
 end
