@@ -156,6 +156,24 @@ class Game
     end
   end
 
+  def quit_message
+    puts "Oh bummer, you're all done."
+  end
+
+  def game_start_error
+    puts " "
+    puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
+    puts " "
+  end
+
+  def player_name
+    puts " "
+    puts "That's the spirit! Enter your name to get started:"
+    print "> "
+    @name_input = input.upcase
+    puts " "
+  end
+  
   def placement_instructions
     puts " "
     puts "Alrighty, I've placed my ships on my board."
@@ -214,7 +232,7 @@ class Game
     puts @board.render(true)
     puts " "
   end
-  
+
   def player_prompt
     puts " "
     puts "Take your shot at Carl's ships!"
@@ -272,22 +290,5 @@ class Game
     end
   end
 
-  def quit_message
-    puts "Oh bummer, you're all done."
-  end
-
-  def game_start_error
-    puts " "
-    puts "❌⛔️ERROR: Please try again. Did you mean 'p' to play or 'q' to quit?⛔️❌"
-    puts " "
-  end
-
-  def player_name
-    puts " "
-    puts "That's the spirit! Enter your name to get started:"
-    print "> "
-    @name_input = input.upcase
-    puts " "
-  end
 
 end
