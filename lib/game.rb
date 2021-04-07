@@ -202,6 +202,12 @@ class Game
     puts "🌊" * 14
   end
 
+  def player_prompt
+    puts " "
+    puts "Take your shot at Carl's ships!"
+    print "> "
+  end 
+
   def player_shot_messages
     if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
       puts "Your shot at #{@last_shot_player} was a MISS, bummer."
@@ -286,10 +292,4 @@ class Game
     puts @board.render(true)
     puts " "
   end
-
-  def player_prompt
-   puts " "
-   puts "Take your shot at Carl's ships!"
-   print "> "
- end
 end
