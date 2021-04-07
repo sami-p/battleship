@@ -129,6 +129,7 @@ class Game
       carl_fires
       carlcomputer_game_board
       players_game_board
+      carlcomp_shot_messages
       player_shot_messages
     end
   end_game
@@ -144,6 +145,16 @@ class Game
       puts " "
     end
     restart
+  end
+
+  def player_shot_messages
+    if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
+      puts "Your shot at #{@last_shot_player} was a MISS, bummer."
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "X"
+      puts puts "You SUNK MY SHIP! Noooo!!!!"
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "H"
+      puts puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
+    end
   end
 
   def input
