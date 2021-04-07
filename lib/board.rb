@@ -14,7 +14,7 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if compare_all_lengths(ship, coordinates) && not_overlapping(coordinates)
+    if compare_ship_and_coord_lengths(ship, coordinates) && not_overlapping(coordinates)
       split_compare_coordinates(coordinates)
         if compare_all_coord
           true
@@ -51,7 +51,7 @@ class Board
     end
   end
 
-  def compare_all_lengths(ship, coordinates)
+  def compare_ship_and_coord_lengths(ship, coordinates)
     ship.length == coordinates.length && @cells[coordinates].nil?
     @ship_length = ship.length
   end
