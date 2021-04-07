@@ -2,7 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/carl_computer'
-require './lib/turn'
 
 class Game
   attr_reader :cruiser,
