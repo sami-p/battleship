@@ -54,7 +54,7 @@ class Cell
   end
 
   def ship_sunk?
-    @fire == true && ship.sunk? == true
+   empty? == false && @fire == true && ship.sunk? == true
   end
 
   def ship_hit?
