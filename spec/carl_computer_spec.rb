@@ -14,4 +14,13 @@ describe CarlComputer do
       expect(carl).to be_an_instance_of(CarlComputer)
     end
   end
+
+  describe "ships" do
+    carl_board = Board.new
+    carl = CarlComputer.new(carl_board)
+
+    it "can add ships" do
+      
+    end
+  end
 end
