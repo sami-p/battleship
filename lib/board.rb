@@ -83,7 +83,6 @@ class Board
 
   def num_cons
     (1..4).each_cons(@ship_length).include?(@num_array)  || @num_array.uniq.count == 1
-    # @num_array.each_cons(2) { |x, y| x == y } || @num_array.each_cons(2) { |x, y| x == y - 1 }
   end
 
   def diagonal_cons
