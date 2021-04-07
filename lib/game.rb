@@ -10,9 +10,10 @@ class Game
               :board,
               :carl_computer,
               :last_shot_player,
-              :last_shot_carl
+              :last_shot_carl,
+              :name_input
 
-  def initialize #(board)
+  def initialize
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
@@ -51,6 +52,7 @@ class Game
 
   def begin_or_end_game
     if @player_input == 'p'
+      player_name
       player_placement
     elsif @player_input == 'q'
       quit_message
@@ -136,7 +138,7 @@ class Game
   def end_game
     puts " "
     if computer_ships_sunk
-      puts "✨🦊✨" " You WON you sly fox, you! " "✨🦊✨"
+      puts "✨🦊✨" " #{@name_input}! You WON you sly fox, you! " "✨🦊✨"
       puts " "
     elsif player_ships_sunk
       puts "🩸💀🩸" "Welp, I'm the winner. Bummer for you. " "🩸💀🩸"
@@ -189,10 +191,10 @@ class Game
 
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board." #add Carl's name
+    puts "Alrighty, I've placed my ships on my board."
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
+    puts "Ahoy Captain #{@name_input}!" # Insert method to take captain name. Move to sooner line
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -217,7 +219,7 @@ class Game
     puts " "
     puts "Enter the coordinates for the Submarine (remember its 2 consecutive units)"
     print "> "
-    @player_input = input.upcase.split
+    @player_input = input.upcase.strip
     puts " "
   end
 
@@ -236,13 +238,13 @@ class Game
     puts " "
   end
 
-  # def player_name
-  #   name_input = input.gets.chomp
-  #   puts " "
-  #   puts "That's the spirit! Enter your name to gets started:"
-  #   print "> "
-  #   puts " "
-  # end
+  def player_name
+    puts " "
+    puts "That's the spirit! Enter your name to get started:"
+    print "> "
+    @name_input = input.upcase.strip
+    puts " "
+  end
 
   def ready_to_play
     puts " "
@@ -272,7 +274,7 @@ class Game
   end
 
   def players_game_board
-    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
+    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
     puts @board.render(true)
     puts " "
   end
