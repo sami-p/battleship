@@ -10,9 +10,11 @@ class Game
               :board,
               :carl_computer,
               :last_shot_player,
-              :last_shot_carl
+              :last_shot_carl,
+              :name_input,
+              :cheat
 
-  def initialize #(board)
+  def initialize
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
     @board = Board.new
@@ -21,6 +23,7 @@ class Game
     # @turn = Turn.new
     # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
+    @cheat = false
   end
 
   def restart
@@ -51,6 +54,7 @@ class Game
 
   def begin_or_end_game
     if @player_input == 'p'
+      player_name
       player_placement
     elsif @player_input == 'q'
       quit_message
@@ -59,17 +63,15 @@ class Game
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
+    puts "I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
+    @player_input = input.downcase
   end
-# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
 
   def player_placement
     @carl_computer.computer_place_ship(@carl_computer.ship_3)
     @carl_computer.computer_place_ship(@carl_computer.ship_2)
-    puts '' ''
-    puts @carl_computer.carl_board.render(true)
 
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
@@ -114,7 +116,13 @@ class Game
       shot_not_valid = true
 
       while shot_not_valid == true
-        if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
+        if @player_shot == "CHEATER"
+          @cheat = true
+          puts "Okay, you can cheat now."
+          puts "Put another coordinate in"
+          print "> "
+          @player_shot = input.upcase
+        elsif @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
           invalid_coordinates
           @player_shot = input.upcase
         elsif @carl_computer.carl_board.cells[@player_shot].fired_upon? == true
@@ -138,7 +146,7 @@ class Game
   def end_game
     puts " "
     if computer_ships_sunk
-      puts "✨🦊✨" " You WON you sly fox, you! " "✨🦊✨"
+      puts "✨🦊✨" " #{@name_input}! You WON you sly fox, you! " "✨🦊✨"
       puts " "
     elsif player_ships_sunk
       puts "🩸💀🩸" "Welp, I'm the winner. Bummer for you. " "🩸💀🩸"
@@ -191,10 +199,10 @@ class Game
 
   def placement_instructions
     puts " "
-    puts "Alrighty, I've placed my ships on my board." #add Carl's name
+    puts "Alrighty, I've placed my ships on my board."
     puts "Now it's your turn!"
     puts " "
-    puts "Ahoy Captain !" # Insert method to take captain name. Move to sooner line
+    puts "Ahoy Captain #{@name_input}!"
     puts "Your ships are The Cruiser and The Submarine."
     puts "The Cruiser takes 3 coordinates, and The Submarine takes 2 coordinates."
     puts "Please enter your coordinates as such: A1 B1 C1"
@@ -238,13 +246,13 @@ class Game
     puts " "
   end
 
-  # def player_name
-  #   name_input = input.gets.chomp
-  #   puts " "
-  #   puts "That's the spirit! Enter your name to gets started:"
-  #   print "> "
-  #   puts " "
-  # end
+  def player_name
+    puts " "
+    puts "That's the spirit! Enter your name to get started:"
+    print "> "
+    @name_input = input.upcase
+    puts " "
+  end
 
   def ready_to_play
     puts " "
@@ -269,12 +277,12 @@ class Game
   def carlcomputer_game_board
     puts " "
     puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
-    puts @carl_computer.carl_board.render(true)
+    puts @carl_computer.carl_board.render(@cheat)
     puts " "
   end
 
   def players_game_board
-    puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
+    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
     puts @board.render(true)
     puts " "
   end
