@@ -18,13 +18,4 @@ describe Game do
     end
   end
 
-  describe 'start' do
-    board = Board.new
-    game = Game.new
-
-    it 'can render a board' do
-      expected = "  1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
-      expect(game.start).to eq(expected)
-    end
-  end
 end
