@@ -13,6 +13,11 @@ describe CarlComputer do
     it "exists" do
       expect(carl).to be_an_instance_of(CarlComputer)
     end
+
+    it "has cells" do
+      expected = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+      expect(carl.carl_shots).to eq(expected)
+    end
   end
 
   describe "ships" do
