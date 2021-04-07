@@ -35,14 +35,14 @@ class Game
   end
 
   def start
-    welcome_message
+    starting_message
     play_or_quit_input
     begin_or_end_game
     @board.render
   end
 
 
-  def welcome_message
+  def starting_message
     puts "💥 Welcome to BATTLESHIP 💥"
     puts "Hi! I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
@@ -91,12 +91,12 @@ class Game
     carlcomputer_game_board
     players_game_board
 
-    until computer_ships_sunk || player_ships_sunk
+    until carlcomputer_ships_sunk || player_ships_sunk
       player_prompt
       @player_shot = input.upcase
-      shot_not_valid = true
+      invalid_shot = true
 
-      while shot_not_valid == true
+      while invalid_shot == true
         if @player_shot == "CHEATER"
           @cheat = true
           puts "Okay FINE, you can cheat now."
@@ -110,15 +110,15 @@ class Game
           puts "Oops! You've already fired there. Try again and pick a new coordinate!"
           @player_shot = input.upcase
         else
-          shot_not_valid = false
+          invalid_shot = false
         end
       end
 
       player_fires
-      carl_fires
+      carlcomputer_fires
       carlcomputer_game_board
       players_game_board
-      carlcomp_shot_messages
+      carlcomputer_shot_messages
       player_shot_messages
     end
     end_game
@@ -126,7 +126,7 @@ class Game
 
   def end_game
     puts " "
-    if computer_ships_sunk
+    if carlcomputer_ships_sunk
       puts "✨🦊✨" " #{@name_input}! You WON you sly fox, you! " "✨🦊✨"
       puts " "
     elsif player_ships_sunk
@@ -139,7 +139,7 @@ class Game
   def play_or_quit_input
     until @player_input == 'p' || @player_input == 'q'
       game_start_error
-      welcome_message
+      starting_message
     end
   end
 
@@ -250,7 +250,7 @@ class Game
     end
   end
 
-  def carlcomp_shot_messages
+  def carlcomputer_shot_messages
     if @board.cells[@last_shot_carl].render == "M"
       puts "NOOO! My shot at #{@last_shot_carl} was a MISS."
     elsif @board.cells[@last_shot_carl].render == "X"
@@ -260,7 +260,7 @@ class Game
     end
   end
 
-  def carl_fires
+  def carlcomputer_fires
     guess = @carl_computer.carl_shots.sample
     @last_shot_carl = guess
     @board.cells[guess].fire_upon
@@ -273,7 +273,7 @@ class Game
     @player_shots.delete(@player_shot)
   end
 
-  def computer_ships_sunk
+  def carlcomputer_ships_sunk
     computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
       cell.ship != nil
     end
