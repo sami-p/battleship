@@ -252,7 +252,7 @@ class Game
 
   def carlcomp_shot_messages
     if @board.cells[@last_shot_carl].render == "M"
-      puts "NOOO! My shot at #{@last_shot_carl} was a MISS, bummer."
+      puts "NOOO! My shot at #{@last_shot_carl} was a MISS."
     elsif @board.cells[@last_shot_carl].render == "X"
       puts "I, Carl, SUNK Your SHIP! Muwhahaha!!"
     elsif @board.cells[@last_shot_carl].render == "H"
