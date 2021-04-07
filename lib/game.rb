@@ -70,6 +70,7 @@ class Game
     @carl_computer.computer_place_ship(@carl_computer.ship_2)
     puts '' ''
     puts @carl_computer.carl_board.render(true)
+
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
       invalid_coordinates
@@ -83,8 +84,8 @@ class Game
     end
 
     board.place(cruiser, @player_input)
-    submarine_prompt
 
+    submarine_prompt
     unless board.valid_placement?(submarine, @player_input)
       invalid_coordinates
     end
@@ -98,6 +99,7 @@ class Game
 
     board.place(submarine, @player_input)
     puts @board.render(true)
+
     ready_to_play
     take_turn
   end
@@ -105,9 +107,10 @@ class Game
   def take_turn
     carlcomputer_game_board
     players_game_board
-    @player_shot = input.upcase
 
     until computer_ships_sunk || player_ships_sunk
+      player_prompt
+      @player_shot = input.upcase
       shot_not_valid = true
 
       while shot_not_valid == true
@@ -126,9 +129,9 @@ class Game
       carl_fires
       carlcomputer_game_board
       players_game_board
-      @player_shot = input.upcase
+      player_shot_messages
     end
-    end_game
+  end_game
   end
 
   def end_game
