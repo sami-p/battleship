@@ -1,8 +1,8 @@
 class Board
-  attr_accessor :cells
   attr_reader :letter_array,
               :num_array,
-              :ship_length
+              :ship_length,
+              :cells
 
   def initialize
     @cells = {}
