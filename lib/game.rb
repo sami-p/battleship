@@ -279,21 +279,9 @@ class Game
     puts " "
   end
 
-  def computer_ships_sunk
-    computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
-      cell.ship != nil
-    end
-    computer_cells.all? do |cell|
-      cell.ship.sunk?
-    end
-  end
-
-  def player_ships_sunk
-    player_cells = @board.cells.values.find_all do |cell|
-      cell.ship != nil
-    end
-    player_cells.all? do |cell|
-      cell.ship.sunk?
-    end
-  end
+  def player_prompt
+   puts " "
+   puts "Take your shot at Carl's ships!"
+   print "> "
+ end
 end
