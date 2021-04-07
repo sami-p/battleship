@@ -175,6 +175,15 @@ class Game
    end
   end
 
+  def carl_fires
+    guess = @carl_computer.carl_shots.sample
+    
+    @board.cells[guess].fire_upon
+    @carl_computer.carl_shots.delete(guess)
+  end
+
+
+
   def carlcomputer_game_board
     puts " "
     puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
