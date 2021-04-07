@@ -59,17 +59,15 @@ class Game
 
   def welcome_message
     puts "💥 Welcome to BATTLESHIP 💥"
+    puts "I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = input.downcase #trim? This get's rid of white space as if there's a space after 'q'
+    @player_input = input.downcase.strip
   end
-# Have an else to catch if it doesn't catch anything, let the user know what it doesn't read that
 
   def player_placement
     @carl_computer.computer_place_ship(@carl_computer.ship_3)
     @carl_computer.computer_place_ship(@carl_computer.ship_2)
-    puts '' ''
-    puts @carl_computer.carl_board.render(true)
 
     placement_instructions
     unless board.valid_placement?(cruiser, @player_input)
