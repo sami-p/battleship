@@ -7,7 +7,7 @@ require './lib/game'
 describe Game do
   describe 'initialize' do
     board = Board.new
-    game = Game.new(board)
+    game = Game.new
 
     it 'exists' do
       expect(game).to be_an_instance_of(Game)
@@ -20,7 +20,7 @@ describe Game do
 
   describe 'start' do
     board = Board.new
-    game = Game.new(board)
+    game = Game.new
 
     it 'can render a board' do
       expected = "  1 2 3 4 \nA . . . .\nB . . . .\nC . . . .\nD . . . .\n"
