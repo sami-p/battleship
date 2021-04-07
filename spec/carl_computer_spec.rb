@@ -20,7 +20,8 @@ describe CarlComputer do
     carl = CarlComputer.new(carl_board)
 
     it "can add ships" do
-      
+      carl.add_ships
+      expect(carl.ships.length).to eq(2)
     end
   end
 end
