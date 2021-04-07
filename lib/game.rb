@@ -11,7 +11,8 @@ class Game
               :carl_computer,
               :last_shot_player,
               :last_shot_carl,
-              :name_input
+              :name_input,
+              :cheat
 
   def initialize
     @cruiser = Ship.new("Cruiser", 3)
@@ -22,6 +23,7 @@ class Game
     # @turn = Turn.new
     # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
+    @cheat = false
   end
 
   def restart
@@ -64,7 +66,7 @@ class Game
     puts "I'm Carl the Computer, want to play?"
     puts "Enter 'p' to play or 'q' to quit (but why would you??)"
     print "> "
-    @player_input = input.downcase.strip
+    @player_input = input.downcase
   end
 
   def player_placement
@@ -114,7 +116,13 @@ class Game
       shot_not_valid = true
 
       while shot_not_valid == true
-        if @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
+        if @player_shot == "CHEATER"
+          @cheat = true
+          puts "Okay, you can cheat now."
+          puts "Put another coordinate in"
+          print "> "
+          @player_shot = input.upcase
+        elsif @carl_computer.carl_board.valid_coordinate?(@player_shot) == false
           invalid_coordinates
           @player_shot = input.upcase
         elsif @carl_computer.carl_board.cells[@player_shot].fired_upon? == true
@@ -219,7 +227,7 @@ class Game
     puts " "
     puts "Enter the coordinates for the Submarine (remember its 2 consecutive units)"
     print "> "
-    @player_input = input.upcase.strip
+    @player_input = input.upcase.split
     puts " "
   end
 
@@ -242,7 +250,7 @@ class Game
     puts " "
     puts "That's the spirit! Enter your name to get started:"
     print "> "
-    @name_input = input.upcase.strip
+    @name_input = input.upcase
     puts " "
   end
 
@@ -269,7 +277,7 @@ class Game
   def carlcomputer_game_board
     puts " "
     puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
-    puts @carl_computer.carl_board.render(true)
+    puts @carl_computer.carl_board.render(@cheat)
     puts " "
   end
 
