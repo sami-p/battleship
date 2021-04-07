@@ -6,10 +6,11 @@ require './lib/turn'
 
 class Game
   attr_reader :cruiser,
-                   :submarine,
-                   :board,
-                   :carl_computer
-                   # :turn
+              :submarine,
+              :board,
+              :carl_computer,
+              :last_shot_player,
+              :last_shot_carl
 
   def initialize #(board)
     @cruiser = Ship.new("Cruiser", 3)
@@ -20,6 +21,18 @@ class Game
     # @turn = Turn.new
     # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
+  end
+
+  def restart
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+    @board = Board.new
+    carl_board = Board.new
+    @carl_computer = CarlComputer.new(carl_board)
+    # @turn = Turn.new
+    # @carls_shots = @carl_computer.cells.keys
+    @player_shots = @board.cells.keys
+    start
   end
 
   def start
