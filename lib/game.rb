@@ -211,7 +211,8 @@ class Game
 
   def invalid_coordinates
     puts " "
-    puts "Whoops! Those coordinates aren't valid, please try again!"
+    puts "❌ Whoops! Those coordinates aren't valid, please try again! ❌"
+    print "> "
   end
 
   def ready_to_play
@@ -223,13 +224,13 @@ class Game
 
   def carlcomputer_game_board
     puts " "
-    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
+    puts "☠️ " " CARL THE COMPUTER'S BOARD " "☠️"
     puts @carl_computer.carl_board.render(@cheat)
     puts " "
   end
 
   def players_game_board
-    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
+    puts "🏴‍☠️" " CAPTAIN #{name_input} BOARD " "🏴‍☠️"
     puts @board.render(true)
     puts " "
   end
@@ -241,21 +242,21 @@ class Game
   end
 
   def player_shot_messages
-    if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
+    if @carl_computer.carl_board.cells[@last_shot_player].render == "Ⓜ️ "
       puts "Your shot at #{@last_shot_player} was a MISS, bummer."
-    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "X"
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "🔥"
       puts "You SUNK MY SHIP! Noooo!!!!"
-    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "H"
+    elsif @carl_computer.carl_board.cells[@last_shot_player].render == "💥"
       puts "Your shot at #{@last_shot_player} was a HIT. Ouch, that hurts!"
     end
   end
 
   def carlcomputer_shot_messages
-    if @board.cells[@last_shot_carl].render == "M"
+    if @board.cells[@last_shot_carl].render == "Ⓜ️ "
       puts "NOOO! My shot at #{@last_shot_carl} was a MISS."
-    elsif @board.cells[@last_shot_carl].render == "X"
+    elsif @board.cells[@last_shot_carl].render == "🔥"
       puts "I, Carl, SUNK Your SHIP! Muwhahaha!!"
-    elsif @board.cells[@last_shot_carl].render == "H"
+    elsif @board.cells[@last_shot_carl].render == "💥"
       puts "Yay me! My shot at #{@last_shot_carl} was a HIT."
     end
   end
