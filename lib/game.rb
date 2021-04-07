@@ -167,6 +167,15 @@ class Game
     end
   end
 
+  def computer_ships_sunk
+    computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
+      cell.ship != nil
+    end
+    computer_cells.all? do |cell|
+      cell.ship.sunk?
+    end
+  end
+
   def input
     gets.chomp
   end
