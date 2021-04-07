@@ -277,8 +277,6 @@ class Game
     puts "🔥" " CAPTAIN (player_name's) BOARD " "🔥"
     puts @board.render(true)
     puts " "
-    puts "Take your shot at Carl's ships!"
-    print "> "
   end
 
   def computer_ships_sunk
