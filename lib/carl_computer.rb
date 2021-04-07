@@ -32,11 +32,4 @@ class CarlComputer
     coordinates = carl_ship_coordinates(ship, ship.length)
     @carl_board.place(ship, coordinates)
   end
-
-  def carl_fires
-    guess = @carl_shots.sample
-
-    @carl_board.cells[guess].fire_upon
-    @carl_shots.delete(guess)
-  end
 end
