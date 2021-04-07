@@ -6,7 +6,7 @@ class Board
 
   def initialize
     @cells = {}
-    cell_creation
+    create_cells
   end
 
   def valid_coordinate?(cell)
@@ -14,8 +14,8 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if compare_all_length(ship, coordinates) && not_overlapping(coordinates)
-      ord_arrays(coordinates)
+    if compare_all_lengths(ship, coordinates) && not_overlapping(coordinates)
+      split_compare_coordinates(coordinates)
         if compare_all_coord
           true
         else
@@ -42,7 +42,7 @@ class Board
     "D #{@cells["D1"].render(reveal)} #{@cells["D2"].render(reveal)} #{@cells["D3"].render(reveal)} #{@cells["D4"].render(reveal)}\n"
   end
 
-  def cell_creation
+  def create_cells
     ["A", "B", "C", "D"].each do |letter|
       ["1", "2", "3", "4"].each do |number|
         name = letter + number
@@ -51,7 +51,7 @@ class Board
     end
   end
 
-  def compare_all_length(ship, coordinates)
+  def compare_all_lengths(ship, coordinates)
     ship.length == coordinates.length && @cells[coordinates].nil?
     @ship_length = ship.length
   end
@@ -62,7 +62,7 @@ class Board
     end
   end
 
-  def ord_arrays(coordinates)
+  def split_compare_coordinates(coordinates)
     letters = coordinates.map do |coordinate|
       coordinate.chars.first
     end
