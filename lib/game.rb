@@ -262,6 +262,7 @@ class Game
 
   def player_fires
     @carl_computer.carl_board.cells[@player_shot].fire_upon
+    @last_shot_player = @player_shot
     @player_shots.delete(@player_shot)
   end
 
