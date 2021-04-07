@@ -58,6 +58,6 @@ class Cell
   end
 
   def ship_hit?
-    @fire == true && empty? == false
+    empty? == false && @fire == true && empty? == false
   end
 end
