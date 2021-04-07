@@ -2,13 +2,13 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/carl_computer'
-require './lib/turn'
 
 class Game
   attr_reader :cruiser,
               :submarine,
               :board,
               :carl_computer,
+              :player_shots,
               :last_shot_player,
               :last_shot_carl,
               :name_input,
@@ -20,8 +20,6 @@ class Game
     @board = Board.new
     carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
-    # @turn = Turn.new
-    # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
     @cheat = false
   end
@@ -32,8 +30,6 @@ class Game
     @board = Board.new
     carl_board = Board.new
     @carl_computer = CarlComputer.new(carl_board)
-    # @turn = Turn.new
-    # @carls_shots = @carl_computer.cells.keys
     @player_shots = @board.cells.keys
     start
   end
