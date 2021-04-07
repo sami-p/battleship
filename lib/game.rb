@@ -161,9 +161,9 @@ class Game
     if @board.cells[@last_shot_carl].render == "M"
       puts "My shot at #{@last_shot_carl} was a MISS, bummer."
     elsif @board.cells[@last_shot_carl].render == "X"
-      puts puts "I, Carl, SUNK Your SHIP! Muhahaha!!"
+      puts "I, Carl, SUNK Your SHIP! Muhahaha!!"
     elsif @board.cells[@last_shot_carl].render == "H"
-      puts puts "My shot at #{@last_shot_carl} was a HIT."
+      puts "My shot at #{@last_shot_carl} was a HIT."
     end
   end
 
@@ -248,14 +248,14 @@ class Game
 
   def ready_to_play
     puts " "
-    puts "~ " * 14
+    puts "🌊" * 14
     puts "⛵️ 💣 " "NOW LET'S PLAY!" " 💣 ⛵️"
-    puts "~ " * 14
+    puts "🌊" * 14
   end
 
   def carl_fires
     guess = @carl_computer.carl_shots.sample
-    last_shot_carl = guess
+    @last_shot_carl = guess
     @board.cells[guess].fire_upon
     @carl_computer.carl_shots.delete(guess)
   end
