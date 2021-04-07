@@ -202,11 +202,24 @@ class Game
     puts "🌊" * 14
   end
 
+  def carlcomputer_game_board
+    puts " "
+    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
+    puts @carl_computer.carl_board.render(@cheat)
+    puts " "
+  end
+
+  def players_game_board
+    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
+    puts @board.render(true)
+    puts " "
+  end
+  
   def player_prompt
     puts " "
     puts "Take your shot at Carl's ships!"
     print "> "
-  end 
+  end
 
   def player_shot_messages
     if @carl_computer.carl_board.cells[@last_shot_player].render == "M"
@@ -228,6 +241,19 @@ class Game
     end
   end
 
+  def carl_fires
+    guess = @carl_computer.carl_shots.sample
+    @last_shot_carl = guess
+    @board.cells[guess].fire_upon
+    @carl_computer.carl_shots.delete(guess)
+  end
+
+  def player_fires
+    @carl_computer.carl_board.cells[@player_shot].fire_upon
+    @last_shot_player = @player_shot
+    @player_shots.delete(@player_shot)
+  end
+
   def computer_ships_sunk
     computer_cells = @carl_computer.carl_board.cells.values.find_all do |cell|
       cell.ship != nil
@@ -245,8 +271,6 @@ class Game
      cell.ship.sunk?
     end
   end
-
-
 
   def quit_message
     puts "Oh bummer, you're all done."
@@ -266,30 +290,4 @@ class Game
     puts " "
   end
 
-
-  def carl_fires
-    guess = @carl_computer.carl_shots.sample
-    @last_shot_carl = guess
-    @board.cells[guess].fire_upon
-    @carl_computer.carl_shots.delete(guess)
-  end
-
-  def player_fires
-    @carl_computer.carl_board.cells[@player_shot].fire_upon
-    @last_shot_player = @player_shot
-    @player_shots.delete(@player_shot)
-  end
-
-  def carlcomputer_game_board
-    puts " "
-    puts "🔥" " CARL THE COMPUTER'S BOARD " "🔥"
-    puts @carl_computer.carl_board.render(@cheat)
-    puts " "
-  end
-
-  def players_game_board
-    puts "🔥" " CAPTAIN #{name_input} BOARD " "🔥"
-    puts @board.render(true)
-    puts " "
-  end
 end
