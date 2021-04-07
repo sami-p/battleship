@@ -9,15 +9,6 @@ class Board
     cell_creation
   end
 
-  def cell_creation
-    ["A", "B", "C", "D"].each do |letter|
-      ["1", "2", "3", "4"].each do |number|
-        name = letter + number
-        @cells[name] = Cell.new(name)
-      end
-    end
-  end
-
   def valid_coordinate?(cell)
     @cells.key?(cell)
   end
@@ -51,6 +42,14 @@ class Board
     "D #{@cells["D1"].render(reveal)} #{@cells["D2"].render(reveal)} #{@cells["D3"].render(reveal)} #{@cells["D4"].render(reveal)}\n"
   end
 
+  def cell_creation
+    ["A", "B", "C", "D"].each do |letter|
+      ["1", "2", "3", "4"].each do |number|
+        name = letter + number
+        @cells[name] = Cell.new(name)
+      end
+    end
+  end
   def not_overlapping(coordinates)
     coordinates.all? do |coordinate|
       @cells[coordinate].empty?
