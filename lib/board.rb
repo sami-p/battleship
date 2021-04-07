@@ -87,7 +87,6 @@ class Board
 
   def diagonal_cons
     ((@letter_array.uniq.count == 1)  && (@num_array.uniq.count == 1)) || ((65..68).each_cons(@ship_length).include?(@letter_array) && (1..4).each_cons(@ship_length).include?(@num_array))
-    # @letter_array.each_cons(2) { |x, y| x == y - 1 } && @num_array.each_cons(2) { |x, y| x == y - 1 } || @letter_array.each_cons(2) { |x, y| x == y } && @num_array.each_cons(2) { |x, y| x == y }
   end
 
   def compare_all_coord
