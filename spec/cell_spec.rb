@@ -64,7 +64,7 @@ describe Cell do
 
       cell_1.fire_upon
 
-      expect(cell_1.render).to eq("Ⓜ️")
+      expect(cell_1.render).to eq("Ⓜ️ ")
     end
 
     it "can show a ship is in the cell" do
